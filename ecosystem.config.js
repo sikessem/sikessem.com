@@ -23,7 +23,7 @@ module.exports = {
       repo : 'https://github.com/sikessem/sikessem.com.git',
       path : '/apps/sikessem.com',
       'pre-deploy-local': '',
-      'post-deploy' : 'bun install && pm2 reload ecosystem.config.js --env production',
+      'post-deploy' : 'bun install && bun run build && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
