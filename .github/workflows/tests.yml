@@ -1,0 +1,119 @@
+name: Tests
+
+permissions:
+  contents: read
+
+on: ['push', 'pull_request']
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        bun: [1.0]
+        php: [8.3]
+        dependencies: [lowest, highest]
+        experimental: [false]
+    name: 👷 Test on PHP-${{ matrix.php }} ${{ matrix.dependencies }} and Bun-${{ matrix.bun }} under ${{ matrix.os }}
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🎉 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ matrix.bun }}
+
+      - name: ✨ Install JavaScript dependencies
+        run: |
+          bun install
+          bun run e2e.install
+
+      - name: ⚡️ Cache dependencies
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-dependencies-php-${{ matrix.php }}-composer-
+
+      - name: 🔨 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, dom, gd, intl, mbstring, openssl, pdo, pdo_mysql, tokenizer, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2, php-cs-fixer, phpunit, vimeo/psalm
+          coverage: pcov
+
+      - name: 🔧 Install PHP dependencies
+        run: |
+          composer install -q --no-ansi --no-cache --no-interaction --no-scripts --no-progress --prefer-dist
+          composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
+
+      - name: 🧑‍💻 Configure environment
+        run: |
+          cp .env.example .env.test
+          set -e
+          sed -i "s|^\(APP_ENV=\s*\).*$|\1test|" .env.test
+          printf "The complete `.env.test` ... \n\n"
+          cat .env.test
+
+      - name: 📦️ Allow executables
+        run: |
+          set -e
+          chmod +x ./run
+          chmod +x ./artisan
+
+      - name: 🔒️ Generate Key
+        run: |
+          set -e
+          ./run key:generate --env=test
+          ./run queue:restart --env=test
+
+      - name: 🔐 Directory Permissions
+        run: |
+          chmod -R 777 storage bootstrap/cache
+          chmod -R 777 storage/
+
+      - name: 🧹 Clear Caches
+        run: set -e && ./run optimize:clear --env=test
+
+      - name: ✅ Check code style
+        run: bun check
+
+      - name: 🧪 Test components
+        run: bun run test
+
+      - name: 🍱 Compile assets
+        run: bun run build
+
+      - name: 📂  List distribution folder
+        run: ls public/static
+
+      - name: ⚡️ Optimize Stuffs
+        run: set -e && ./run optimize --env=test
+
+      - name: ✅ Check code lint
+        run: composer check
+
+      - name: ⚗️ Run static analysis
+        run: composer analyse
+
+      - name: 🧪 Test features
+        run: |
+          set -e && ./run serve --env=test > /dev/null 2>&1 &
+          composer test
+
+      - name: 💚 Test the whole application
+        run: composer debug
+
+      - name: 🚀 Execute end-to-end testing
+        run: bun e2e

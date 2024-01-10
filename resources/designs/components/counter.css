@@ -1,0 +1,3 @@
+.button {
+    @apply bg-blue-0 border-blue-4 text-blue-4 rounded-lg m-4 px-6 py-4;
+}
