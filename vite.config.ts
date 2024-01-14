@@ -19,7 +19,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     root,
     plugins: [
       laravelVite({
-        input: ['resources/designs/app.tsx'],
+        input: ['resources/designs/app.css', 'resources/designs/app.tsx'],
         refresh: [...refreshPaths, 'resources/designs/**', 'resources/views/**', 'app/View/**'],
         buildDirectory,
       }),

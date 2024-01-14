@@ -1,7 +1,6 @@
 import { render } from '@builder.io/qwik';
 import '@builder.io/qwik/qwikloader.js';
 import { Counter } from '~/components/Counter';
-import '~/styles/global.css';
 import './vendor';
 import.meta.glob(['@/**']);
 

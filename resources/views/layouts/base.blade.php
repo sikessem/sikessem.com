@@ -22,7 +22,7 @@
         @endforeach
         @endisset
 
-        @vite('resources/designs/app.tsx')
+        @vite(['resources/designs/app.css', 'resources/designs/app.tsx'])
 
         @livewireStyles
     @show
