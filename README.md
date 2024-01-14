@@ -22,26 +22,26 @@ The Sikessem Website.
 
 ## 🔖 Contents
 
-- [Sikessem Website](#sikessem-website)
-  - [🔖 Contents](#-contents)
-  - [🎉 Getting Started](#-getting-started)
-    - [⚡️ Installation](#️-installation)
-    - [🗃️ Manage Database](#️-manage-database)
-    - [🌐 Starting server](#-starting-server)
-    - [🧪 Testing and debugging](#-testing-and-debugging)
-      - [🧹 Keep a modern codebase](#-keep-a-modern-codebase)
-      - [⚗️ Run static analysis](#️-run-static-analysis)
-      - [✅ Run unit tests](#-run-unit-tests)
-      - [🐛 Check all code bugs](#-check-all-code-bugs)
-  - [📋 Requirements](#-requirements)
-  - [📖 Documentation](#-documentation)
-  - [👏 Contribution](#-contribution)
-    - [👷 Code of Conduct](#-code-of-conduct)
-    - [👥 Contributing Guide](#-contributing-guide)
-    - [🔒️ Good First Issues](#️-good-first-issues)
-    - [💬 Discussions](#-discussions)
-  - [🔐 Security Reports](#-security-reports)
-  - [📄 License](#-license)
+-   [Sikessem Website](#sikessem-website)
+    -   [🔖 Contents](#-contents)
+    -   [🎉 Getting Started](#-getting-started)
+        -   [⚡️ Installation](#️-installation)
+        -   [🗃️ Manage Database](#️-manage-database)
+        -   [🌐 Starting server](#-starting-server)
+        -   [🧪 Testing and debugging](#-testing-and-debugging)
+            -   [🧹 Keep a modern codebase](#-keep-a-modern-codebase)
+            -   [⚗️ Run static analysis](#️-run-static-analysis)
+            -   [✅ Run unit tests](#-run-unit-tests)
+            -   [🐛 Check all code bugs](#-check-all-code-bugs)
+    -   [📋 Requirements](#-requirements)
+    -   [📖 Documentation](#-documentation)
+    -   [👏 Contribution](#-contribution)
+        -   [👷 Code of Conduct](#-code-of-conduct)
+        -   [👥 Contributing Guide](#-contributing-guide)
+        -   [🔒️ Good First Issues](#️-good-first-issues)
+        -   [💬 Discussions](#-discussions)
+    -   [🔐 Security Reports](#-security-reports)
+    -   [📄 License](#-license)
 
 ## 🎉 Getting Started
 
@@ -53,12 +53,12 @@ The Sikessem Website.
 composer create-project sikessem/sikessem.com sikessem
 ```
 
-Where ***sikessem*** is the name of your app.
+Where **_sikessem_** is the name of your app.
 
 Access the working directory:
 
 ```shell
-cd sikessem 
+cd sikessem
 ```
 
 Install PHP dependencies:
@@ -103,13 +103,13 @@ Then visit [http://sikessem.local:8000/](http://sikessem.local:8000/)
 
 #### 🧹 Keep a modern codebase
 
-- with **Biome**:
+-   with **Biome**:
 
 ```shell
 bun check
 ```
 
-- with **Pint**:
+-   with **Pint**:
 
 ```shell
 composer check
@@ -117,7 +117,7 @@ composer check
 
 #### ⚗️ Run static analysis
 
-- Using **PHPStan**:
+-   Using **PHPStan**:
 
 ```shell
 composer analyse
@@ -125,13 +125,13 @@ composer analyse
 
 #### ✅ Run unit tests
 
-- using **Bun**:
+-   using **Bun**:
 
 ```shell
 bun run test
 ```
 
-- using **PEST**:
+-   using **PEST**:
 
 ```shell
 composer test
@@ -145,13 +145,13 @@ bun e2e
 
 #### 🐛 Check all code bugs
 
-- Frontend:
+-   Frontend:
 
 ```shell
 bun debug
 ```
 
-- Backend:
+-   Backend:
 
 ```shell
 composer debug
@@ -159,11 +159,11 @@ composer debug
 
 ## 📋 Requirements
 
-- **Requires [PHP 8.3+](https://php.net/releases/)** (at least 8.3.1 recommended to avoid potential bugs).
-- **Requires [PostgreSQL 16.1+](https://www.postgresql.org/)** as Relational Database Management System.
-- **Requires [Bun 1.0+](https://bun.sh/)** (at least 1.0.21 recommended to avoid potential bugs).
-- **Requires [Composer >=2.6.6](https://getcomposer.org/)** to manage [PHP][php-link] dependencies.
-- **Requires [Git ~2.43.0](https://git-scm.com/)** to manage source code.
+-   **Requires [PHP 8.3+](https://php.net/releases/)** (at least 8.3.1 recommended to avoid potential bugs).
+-   **Requires [PostgreSQL 16.1+](https://www.postgresql.org/)** as Relational Database Management System.
+-   **Requires [Bun 1.0+](https://bun.sh/)** (at least 1.0.22 recommended to avoid potential bugs).
+-   **Requires [Composer >=2.6.6](https://getcomposer.org/)** to manage [PHP][php-link] dependencies.
+-   **Requires [Git ~2.43.0](https://git-scm.com/)** to manage source code.
 
 ## 📖 Documentation
 
@@ -196,57 +196,56 @@ If you discover a security vulnerability within [Sikessem](https://sikessem.com)
 
 ## 📄 License
 
-The Sikessem Website is open-sourced software licensed under the  [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE][license-link] file for details.
+The Sikessem Website is open-sourced software licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE][license-link] file for details.
 
 ---
 
 <div align="center"><sub>Made with ❤︎ by <a href="https://twitter.com/intent/follow?screen_name=siguici" style="content:url(https://img.shields.io/twitter/follow/siguici.svg?label=@siguici);margin-bottom:-6px">@siguici</a>.</sub></div>
 
 [sikessem-logo]: https://github.com/sikessem/art/blob/HEAD/images/sikessem.svg
-[sikessem-link]: https://github.com/sikessem "Sikessem"
-
+[sikessem-link]: https://github.com/sikessem 'Sikessem'
 [php-icon]: https://img.shields.io/badge/PHP-ccc.svg?style=flat&logo=php
-[php-link]: https://github.com/sikessem/sikessem.com/search?l=php "PHP code"
-
+[php-link]: https://github.com/sikessem/sikessem.com/search?l=php 'PHP code'
 [typescript-icon]: https://img.shields.io/badge/TypeScript-294E80.svg?logo=typescript
-[typescript-link]:  https://github.com/sikessem/sikessem.com/search?l=typescript "TypeScript code"
-
+[typescript-link]: https://github.com/sikessem/sikessem.com/search?l=typescript 'TypeScript code'
 [javascript-icon]: https://img.shields.io/badge/JavaScript-yellow.svg?logo=javascript
-[javascript-link]:  https://github.com/sikessem/sikessem.com/search?l=javascript "JavaScript code"
-
+[javascript-link]: https://github.com/sikessem/sikessem.com/search?l=javascript 'JavaScript code'
 [packagist-version-icon]: https://img.shields.io/packagist/v/sikessem/sikessem.com
-[packagist-version-link]: https://packagist.org/packages/sikessem/sikessem.com "Website Releases"
-
+[packagist-version-link]: https://packagist.org/packages/sikessem/sikessem.com 'Website Releases'
 [packagist-download-icon]: https://img.shields.io/packagist/dt/sikessem/sikessem.com
-[packagist-download-link]: https://packagist.org/packages/sikessem/sikessem.com "Website Downloads"
-
+[packagist-download-link]: https://packagist.org/packages/sikessem/sikessem.com 'Website Downloads'
 [actions-icon]: https://github.com/sikessem/sikessem.com/workflows/Tests/badge.svg
-[actions-link]: https://github.com/sikessem/sikessem.com/actions "Website status"
-
+[actions-link]: https://github.com/sikessem/sikessem.com/actions 'Website status'
 [pr-icon]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=brightgreen
-[pr-link]: https://github.com/sikessem/.github/blob/HEAD/CONTRIBUTING.md "PRs welcome!"
-
+[pr-link]: https://github.com/sikessem/.github/blob/HEAD/CONTRIBUTING.md 'PRs welcome!'
 [twitter-icon]: https://img.shields.io/twitter/follow/sikessem_tweets.svg?label=@sikessem_tweets
-[twitter-link]: https://twitter.com/intent/follow?screen_name=sikessem_tweets "Ping Sikessem"
-
+[twitter-link]: https://twitter.com/intent/follow?screen_name=sikessem_tweets 'Ping Sikessem'
 [license-icon]: https://img.shields.io/badge/license-MIT-blue.svg
-[license-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/LICENSE "Website License"
+[license-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/LICENSE 'Website License'
 [conduct-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/CODE_OF_CONDUCT.md
 [discuss-link]: https://github.com/orgs/sikessem/discussions
-[docs-link]: https://github.com/sikessem/sikessem.com#readme "Website Documentation"
-
+[docs-link]: https://github.com/sikessem/sikessem.com#readme 'Website Documentation'
 [gfi]: https://github.com/sikessem/sikessem.com/labels/good%20first%20issue
-
 [php-home]: https://php.net
-[laravel-home]: https://laravel.com "Laravel"
-[livewire-home]: https://laravel-livewire.com "Laravel Livewire"
-[typescript-home]: https://www.typescriptlang.org "TypeScript"
-[alpinejs-home]: https://alpinejs.dev "Alpine.js"
-[tailwindcss-home]: https://tailwindcss.com "TailwindCSS"
-[vitejs-home]: https://vitejs.dev "Vite.js"
-[biome-home]: https://biomejs.dev "Biome"
-[bun-home]: https://bun.sh "Bun"
-[pint-home]: https://github.com/laravel/pint "Laravel Pint"
-[phpstan-home]: https://phpstan.org "PHPStan"
-[larastan-home]: https://github.com/nunomaduro/larastan "Larastan"
-[rector-home]: https://getrector.com "Rector"
+[laravel-home]: https://laravel.com 'Laravel'
+[livewire-home]: https://laravel-livewire.com 'Laravel Livewire'
+[typescript-home]: https://www.typescriptlang.org 'TypeScript'
+[alpinejs-home]: https://alpinejs.dev 'Alpine.js'
+[tailwindcss-home]: https://tailwindcss.com 'TailwindCSS'
+[vitejs-home]: https://vitejs.dev 'Vite.js'
+[biome-home]: https://biomejs.dev 'Biome'
+[bun-home]: https://bun.sh 'Bun'
+[pint-home]: https://github.com/laravel/pint 'Laravel Pint'
+[phpstan-home]: https://phpstan.org 'PHPStan'
+[larastan-home]: https://github.com/nunomaduro/larastan 'Larastan'
+[rector-home]: https://getrector.com 'Rector'
+
+## Bun Server
+
+This app has a minimal [Bun server](https://bun.sh/docs/api/http) implementation. After running a full build, you can preview the build using the command:
+
+```
+bun run serve
+```
+
+Then visit [http://localhost:3000/](http://localhost:3000/)

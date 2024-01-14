@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-// import focus from "@alpinejs/focus";
-import Alpine from 'alpinejs';
+import focus from "@alpinejs/focus";
+import {
+    Alpine,
+    Livewire,
+} from '../../vendor/livewire/livewire/dist/livewire.esm.js';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12,8 +15,8 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Alpine = Alpine;
-// Alpine.plugin(focus);
-Alpine.start();
+Alpine.plugin(focus);
+Livewire.start();
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

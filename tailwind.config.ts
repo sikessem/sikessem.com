@@ -7,24 +7,24 @@ import UIConfig from './vendor/sikessem/ui/tailwind.config';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  presets: [UIConfig],
+    presets: [UIConfig],
 
-  content: [
-    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-    './vendor/laravel/jetstream/**/*.blade.php',
-    './storage/framework/views/*.php',
-    './resources/**/*.{js,jsx,ts,tsx,md,mdx}',
-    './resources/templates/**/*.blade.php',
-    './app/View/**/*.php',
-  ],
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './vendor/laravel/jetstream/**/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/**/*.{js,jsx,ts,tsx,md,mdx}',
+        './resources/templates/**/*.blade.php',
+        './app/View/**/*.php',
+    ],
 
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Figtree', 'Nunito', ...defaultTheme.fontFamily.sans],
-      },
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Figtree', 'Nunito', ...defaultTheme.fontFamily.sans],
+            },
+        },
     },
-  },
 
-  plugins: [nesting, forms, typography, UIPlugin],
+    plugins: [nesting, forms, typography, UIPlugin],
 };

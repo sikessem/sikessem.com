@@ -41,11 +41,6 @@ $app = Sikessem\Application::create(
 */
 
 $app->singleton(
-    Illuminate\Contracts\Foundation\Application::class,
-    Sikessem\Application::class
-);
-
-$app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
 );
