@@ -67,10 +67,7 @@ export function parse_obj(val: string): Record<any,any> {
     const obj: Record<any,any> = {};
     const items = val.split(',');
     for (const item of items) {
-        let [key, val] = parse_arg(item);
-        if (val !== undefined) {
-            val = parse_val(val);
-        }
+        let [key, val] = parse_kv(item);
         obj[key] = val;
     }
     return obj;
@@ -98,7 +95,13 @@ export function parse_args(val: string): Record<string,any> {
     if (res) {
         val = res[1];
     }
-    return parse_obj(val);
+    const args: Record<any,any> = {};
+    const items = val.split(',');
+    for (const item of items) {
+        let [key, val] = parse_arg(item);
+        args[key] = val;
+    }
+    return args;
 }
 
 export function parse_props(val: string): Record<string,any> {
@@ -109,12 +112,25 @@ export function parse_props(val: string): Record<string,any> {
     return parse_args(val);
 }
 
-export function parse_arg(val: string): any {
+export function parse_kv(val: string): any {
     const res = new RegExp(/^([\w0-9\$]*)\s*\:\s*(.+)$/gsm).exec(val)
     if (res) {
-        return [parse_val(res[1]), parse_val(res[2])];
+        const key = parse_val(res[1]);
+        let value = parse_val(res[2]);
+        if (value !== undefined) {
+            value = parse_val(value);
+        }
+        return [key, value];
     }
+    return parse_val(val);
+}
 
+export function parse_arg(val: string): any {
+    const [key, value] = parse_kv(val);
+    if (typeof(value) === 'string') {
+        const [_, param] = parse_param(value);
+        return [key, param ?? value];
+    }
     return parse_val(val);
 }
 
@@ -123,6 +139,5 @@ export function parse_param(val: string): any {
     if (res) {
         return [parse_str(res[1]), parse_val(res[2])];
     }
-
     return parse_val(val);
 }
