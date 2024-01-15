@@ -10,19 +10,6 @@ class QwikElement extends HTMLElement {
     }
 }
 
-// const observer = new MutationObserver((mutations) => {
-//     for (const mutation of mutations) {
-//         switch (mutation.type) {
-//             case 'attributes':
-//                 break;
-//             case 'characterData':
-//                 break;
-//             case 'childList':
-//                 break;
-//         }
-//     }
-// });
-
 export function define(name: string, template: Template, component: Component) {
     const q_tag = `q-${name}`;
 
@@ -31,7 +18,6 @@ export function define(name: string, template: Template, component: Component) {
     }
 
     for (const element of document.getElementsByTagName(q_tag)) {
-        // observer.observe(element, { attributes: true, characterData: true, childList: true, subtree: true });
         const props: Record<string, any> = {};
         const slot = element.innerHTML;
         const exp = /\(\{([^\(\)\{\}]+?)\}\)\s*(?:\=\>)?\s*\{?/mg
