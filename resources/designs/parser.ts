@@ -38,6 +38,7 @@ export function parse_val(val: string): any {
 }
 
 export function parse_str(val: string): string {
+    val = val.trim();
     let res = new RegExp(/^('|")(.*?)\1$/gsm).exec(val)
     if (res) {
         val = res[2];
@@ -51,9 +52,9 @@ export function parse_arr(val: string): any[] {
         val = res[1];
     }
     const arr: any[] = [];
-    const parts = val.split(',');
-    for (const i in parts) {
-        arr[i] = parse_val(parts[i])
+    const items = val.split(',');
+    for (const i in items) {
+        arr[i] = parse_val(items[i])
     }
     return arr;
 }
@@ -64,10 +65,9 @@ export function parse_obj(val: string): Record<any,any> {
         val = res[1];
     }
     const obj: Record<any,any> = {};
-    const parts = val.split(',');
-    for (const part of parts) {
-        let [key, val] = part.split(':', 2);
-        key = parse_val(key);
+    const items = val.split(',');
+    for (const item of items) {
+        let [key, val] = parse_arg(item);
         if (val !== undefined) {
             val = parse_val(val);
         }
@@ -82,10 +82,9 @@ export function parse_params(val: string): Record<string,any> {
         val = res[1];
     }
     const params: Record<string,any> = {};
-    const parts = val.split(',');
-    for (const part of parts) {
-        let [name, val] = part.split('=', 2);
-        name = parse_str(name.trim());
+    const items = val.split(',');
+    for (const item of items) {
+        let [name, val] = parse_param(item);
         if (val !== undefined) {
             val = parse_val(val);
         }
@@ -94,10 +93,36 @@ export function parse_params(val: string): Record<string,any> {
     return params;
 }
 
+export function parse_args(val: string): Record<string,any> {
+    const res = new RegExp(/^\((.*?)\)$/gsm).exec(val)
+    if (res) {
+        val = res[1];
+    }
+    return parse_obj(val);
+}
+
 export function parse_props(val: string): Record<string,any> {
     const res = new RegExp(/^\{(.*?)\}$/gsm).exec(val)
     if (res) {
         val = res[1];
     }
-    return parse_params(val);
+    return parse_args(val);
+}
+
+export function parse_arg(val: string): any {
+    const res = new RegExp(/^([\w0-9\$]*)\s*\:\s*(.+)$/gsm).exec(val)
+    if (res) {
+        return [parse_val(res[1]), parse_val(res[2])];
+    }
+
+    return parse_val(val);
+}
+
+export function parse_param(val: string): any {
+    const res = new RegExp(/^([\w\$]+[\w0-9\$]*)\s*\=\s*(.+)$/gsm).exec(val)
+    if (res) {
+        return [parse_str(res[1]), parse_val(res[2])];
+    }
+
+    return parse_val(val);
 }
