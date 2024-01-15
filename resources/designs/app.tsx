@@ -10,12 +10,26 @@ class QwikComponent extends HTMLElement {
     }
 }
 
+const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+        switch (mutation.type) {
+            case 'attributes':
+                break;
+            case 'characterData':
+                break;
+            case 'childList':
+                break;
+        }
+    }
+});
+
 for (const [tag, [component, Qomponent]] of Object.entries(components)) {
     const q_tag= `q-${tag}`;
     if (! customElements.get(q_tag)) {
         customElements.define(q_tag, QwikComponent);
     }
     for (const element of document.getElementsByTagName(q_tag)) {
+        observer.observe(element, { attributes: true, characterData: true, childList: true, subtree: true });
         const props: Record<string, any> = {};
         const content = element.innerHTML;
         const pattern = /\(\{([^\(\)]+?)\}\)\s*(?:\=\>|\{)\s*/g
