@@ -53,7 +53,7 @@ export function parse_arr(val: string): any[] {
     const arr: any[] = [];
     const parts = val.split(',');
     for (const i in parts) {
-        arr[i] = parse_val(parts[i].trim())
+        arr[i] = parse_val(parts[i])
     }
     return arr;
 }
@@ -68,7 +68,9 @@ export function parse_obj(val: string): Record<any,any> {
     for (const part of parts) {
         let [key, val] = part.split(':', 2);
         key = parse_val(key);
-        val = parse_val(val);
+        if (val !== undefined) {
+            val = parse_val(val);
+        }
         obj[key] = val;
     }
     return obj;
@@ -84,7 +86,9 @@ export function parse_params(val: string): Record<string,any> {
     for (const part of parts) {
         let [name, val] = part.split('=', 2);
         name = parse_str(name.trim());
-        val = parse_val(val);
+        if (val !== undefined) {
+            val = parse_val(val);
+        }
         params[name] = val;
     }
     return params;
