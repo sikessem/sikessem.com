@@ -4,8 +4,18 @@ import './vendor';
 import { parse_props, parse_val } from './parser';
 import.meta.glob(['@/**']);
 
-for (const [selector, [component, Qomponent]] of Object.entries(components)) {
-    for (const element of document.querySelectorAll(`q-${selector}`)) {
+class QwikComponent extends HTMLElement {
+    constructor() {
+        super();
+    }
+}
+
+for (const [tag, [component, Qomponent]] of Object.entries(components)) {
+    const q_tag= `q-${tag}`;
+    if (! customElements.get(q_tag)) {
+        customElements.define(q_tag, QwikComponent);
+    }
+    for (const element of document.getElementsByTagName(q_tag)) {
         const props: Record<string, any> = {};
         const content = element.innerHTML;
         const pattern = /\(\{([^\(\)]+?)\}\)\s*(?:\=\>|\{)\s*/g
