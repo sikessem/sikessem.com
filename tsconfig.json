@@ -1,5 +1,5 @@
 {
-    "include": ["resources/designs", "vendor/livewire/livewire"],
+    "include": ["resources/designs", "app", "src", "vendor/livewire/livewire"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "allowJs": true,
@@ -47,7 +47,9 @@
         "types": ["node", "vite/client"],
         "baseUrl": ".",
         "paths": {
-            "~/*": ["resources/designs/*"]
+            "~/*": ["resources/designs/*"],
+            "App/*": ["app/*"],
+            "Sikessem/*": ["src/*"],
         }
     },
     "files": ["./.eslintrc.cjs"]
