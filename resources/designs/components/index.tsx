@@ -1,7 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import '@builder.io/qwik/qwikloader.js';
 import { Counter } from "./counter";
+import { define } from '../qustom';
 
-export const components = {
-    counter: [Counter, component$(Counter)],
-};
+define('counter', Counter, component$(Counter));
