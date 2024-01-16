@@ -22,6 +22,15 @@
         "issues": "https://github.com/sikessem/sikessem.com/issues",
         "chat": "https://github.com/orgs/sikessem/discussions"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": ">=8.3",
         "guzzlehttp/guzzle": "^7.8",
