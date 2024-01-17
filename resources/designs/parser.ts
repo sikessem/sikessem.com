@@ -1,39 +1,30 @@
 export function parse_val(val: string): any {
     val = val.trim();
     const lc_val = val.toLowerCase();
-
     if (lc_val === 'null') {
         return null;
     }
-
     if (lc_val === 'undefined') {
         return undefined;
     }
-
     if (lc_val === 'true') {
         return true;
     }
-
     if (lc_val === 'false') {
         return false;
     }
-
     if (! Number.isNaN(Number(val))) {
         return Number(val);
     }
-
     if (new RegExp(/^('|")(.*?)\1$/gsm).test(val)) {
         return parse_str(val);
     }
-
     if (new RegExp(/^\[(.*?)\]$/gsm).test(val)) {
         return parse_arr(val);
     }
-
     if (new RegExp(/^\{(.*?)\}$/gsm).test(val)) {
         return parse_obj(val);
     }
-
     return val;
 }
 
@@ -67,7 +58,7 @@ export function parse_obj(val: string): Record<any,any> {
     const obj: Record<any,any> = {};
     const items = val.split(',');
     for (const item of items) {
-        let [key, val] = parse_kv(item);
+        let [key, val] = parse_prop(item);
         obj[key] = val;
     }
     return obj;
@@ -98,7 +89,7 @@ export function parse_args(val: string): Record<string,any> {
     const args: Record<any,any> = {};
     const items = val.split(',');
     for (const item of items) {
-        let [key, val] = parse_arg(item);
+        let [key, val] = parse_prop(item);
         args[key] = val;
     }
     return args;
@@ -112,32 +103,40 @@ export function parse_props(val: string): Record<string,any> {
     return parse_args(val);
 }
 
-export function parse_kv(val: string): any {
-    const res = new RegExp(/^([\w0-9\$]*)\s*\:\s*(.+)$/gsm).exec(val)
+export function parse_prop(val: string): any {
+    const res = new RegExp(/^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm).exec(val)
+    if (res) {
+        return parse_arg(val);
+    }
+    return parse_param(val);
+}
+
+export function parse_arg(val: string): any {
+    val = val.trim();
+    const res = new RegExp(/^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm).exec(val);
     if (res) {
         const key = parse_val(res[1]);
         let value = parse_val(res[2]);
         if (value !== undefined) {
             value = parse_val(value);
         }
+        if (typeof(value) === 'string') {
+            const [_, param] = parse_param(value);
+            return [key, param ?? value];
+        }
+        if (value === undefined) {
+            return parse_param(key);
+        }
         return [key, value];
     }
-    return parse_val(val);
-}
-
-export function parse_arg(val: string): any {
-    const [key, value] = parse_kv(val);
-    if (typeof(value) === 'string') {
-        const [_, param] = parse_param(value);
-        return [key, param ?? value];
-    }
-    return parse_val(val);
+    return parse_param(val);
 }
 
 export function parse_param(val: string): any {
-    const res = new RegExp(/^([\w\$]+[\w0-9\$]*)\s*\=\s*(.+)$/gsm).exec(val)
+    val = val.trim();
+    const res = new RegExp(/^([a-zA-Z0-9_\$]+[a-zA-Z0-9_\$]*)\s*\=\s*(.+)$/gsm).exec(val);
     if (res) {
         return [parse_str(res[1]), parse_val(res[2])];
     }
-    return parse_val(val);
+    return [parse_val(val)];
 }
