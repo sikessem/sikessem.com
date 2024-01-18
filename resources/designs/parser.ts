@@ -16,13 +16,13 @@ export function parse_val(val: string): any {
     if (! Number.isNaN(Number(val))) {
         return Number(val);
     }
-    if (new RegExp(/^('|")(.*?)\1$/gsm).test(val)) {
+    if (/^('|")(.*?)\1$/gsm.test(val)) {
         return parse_str(val);
     }
-    if (new RegExp(/^\[(.*?)\]$/gsm).test(val)) {
+    if (/^\[(.*?)\]$/gsm.test(val)) {
         return parse_arr(val);
     }
-    if (new RegExp(/^\{(.*?)\}$/gsm).test(val)) {
+    if (/^\{(.*?)\}$/gsm.test(val)) {
         return parse_obj(val);
     }
     return val;
@@ -30,7 +30,7 @@ export function parse_val(val: string): any {
 
 export function parse_str(val: string): string {
     val = val.trim();
-    let res = new RegExp(/^('|")(.*?)\1$/gsm).exec(val)
+    let res = /^('|")(.*?)\1$/gsm.exec(val)
     if (res) {
         val = res[2];
     }
@@ -38,7 +38,7 @@ export function parse_str(val: string): string {
 }
 
 export function parse_arr(val: string): any[] {
-    const res = new RegExp(/^\[(.*?)\]$/gsm).exec(val)
+    const res = /^\[(.*?)\]$/gsm.exec(val)
     if (res) {
         val = res[1];
     }
@@ -51,7 +51,7 @@ export function parse_arr(val: string): any[] {
 }
 
 export function parse_obj(val: string): Record<any,any> {
-    const res = new RegExp(/^\{(.*?)\}$/gsm).exec(val)
+    const res = /^\{(.*?)\}$/gsm.exec(val)
     if (res) {
         val = res[1];
     }
@@ -65,7 +65,7 @@ export function parse_obj(val: string): Record<any,any> {
 }
 
 export function parse_params(val: string): Record<string,any> {
-    const res = new RegExp(/^\((.*?)\)$/gsm).exec(val)
+    const res = /^\((.*?)\)$/gsm.exec(val)
     if (res) {
         val = res[1];
     }
@@ -82,7 +82,7 @@ export function parse_params(val: string): Record<string,any> {
 }
 
 export function parse_args(val: string): Record<string,any> {
-    const res = new RegExp(/^\((.*?)\)$/gsm).exec(val)
+    const res = /^\((.*?)\)$/gsm.exec(val)
     if (res) {
         val = res[1];
     }
@@ -96,7 +96,7 @@ export function parse_args(val: string): Record<string,any> {
 }
 
 export function parse_props(val: string): Record<string,any> {
-    const res = new RegExp(/^\{(.*?)\}$/gsm).exec(val)
+    const res = /^\{(.*?)\}$/gsm.exec(val)
     if (res) {
         val = res[1];
     }
@@ -104,8 +104,7 @@ export function parse_props(val: string): Record<string,any> {
 }
 
 export function parse_prop(val: string): any {
-    const res = new RegExp(/^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm).exec(val)
-    if (res) {
+    if (/^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm.test(val)) {
         return parse_arg(val);
     }
     return parse_param(val);
@@ -113,7 +112,7 @@ export function parse_prop(val: string): any {
 
 export function parse_arg(val: string): any {
     val = val.trim();
-    const res = new RegExp(/^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm).exec(val);
+    const res = /^([a-zA-Z0-9_\$]*)\s*\:\s*(.+)$/gsm.exec(val);
     if (res) {
         const key = parse_val(res[1]);
         let value = parse_val(res[2]);
@@ -134,7 +133,7 @@ export function parse_arg(val: string): any {
 
 export function parse_param(val: string): any {
     val = val.trim();
-    const res = new RegExp(/^([a-zA-Z0-9_\$]+[a-zA-Z0-9_\$]*)\s*\=\s*(.+)$/gsm).exec(val);
+    const res = /^([a-zA-Z0-9_\$]+[a-zA-Z0-9_\$]*)\s*\=\s*(.+)$/gsm.exec(val);
     if (res) {
         return [parse_str(res[1]), parse_val(res[2])];
     }
