@@ -1,7 +1,6 @@
-import { component$ } from '@builder.io/qwik';
-import '@builder.io/qwik/qwikloader.js';
 import { Counter } from "./counter";
-import { define } from '../qustom';
+import { use } from '../intense';
+import { component$ } from "@builder.io/qwik";
 
-const template = (new Counter).render;
-define('counter', template, component$(template));
+const template = (new Counter).template;
+use('counter', template, component$(template));

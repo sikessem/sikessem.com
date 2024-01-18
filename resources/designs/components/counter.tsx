@@ -1,9 +1,11 @@
 import { $, Slot, useSignal } from '@builder.io/qwik';
 import './counter.css';
-import { Template } from '~/template';
+import { Element } from '~/intense';
 
-export class Counter implements Template {
-    render ({ init = 0, step = 1 }) {
+export class Counter implements Element {
+    constructor(public name = 'counter') {}
+
+    template ({ init = 0, step = 1 }) {
         const count = useSignal(init);
     
         const increment$ = $(() => {
