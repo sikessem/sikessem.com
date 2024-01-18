@@ -27,15 +27,25 @@ export function use(rendererType: typeof Renderer, prefix = 'q') {
     for (const elt of document.getElementsByTagName(tag)) {
         const props: Props = {};
         const slot = elt.innerHTML;
-        const exp = /render\s*\(\{([^\(\)\{\}]+?)\}\)\s*(?:\=\>)?\s*\{?/mg
-        const reg = new RegExp(exp);
+        const reg = /render\s*\(\{([^\(\)\{\}]+?)\}\)\s*(?:\=\>)?\s*\{?/mg
         const tpl = template.toString();
         const res = reg.exec(tpl);
         if (res) {
             const default_props = parse_props(res[1]);
             for (const [prop, default_val] of Object.entries(default_props)) {
-                const value = parse_val(elt.getAttribute(prop) || 'null') ?? default_val;
-                props[prop] = value;
+                let attr = elt.getAttribute(`:${prop}`);
+                if (attr) {
+                    props[prop] = parse_val(attr);
+                    continue;
+                }
+
+                attr = elt.getAttribute(prop);
+                if (attr) {
+                    props[prop] = attr;
+                    continue;
+                }
+
+                props[prop] = default_val;
             };
         }
         render(
