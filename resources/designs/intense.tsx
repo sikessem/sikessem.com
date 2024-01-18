@@ -1,44 +1,48 @@
-import { type JSXNode, type QwikJSX, render, Component } from "@builder.io/qwik";
+import { type QwikJSX, render, component$ } from "@builder.io/qwik";
 import { parse_props, parse_val } from './parser';
 
-export type Template = <PROPS extends Record<any, any>>(props: PROPS) => JSXNode | QwikJSX.Element | null
+export type Props = Record<any, any>;
+export type Template = <T extends Props>(props: T) => QwikJSX.Element | null;
 
-export interface Element {
-    template: Template
+export interface Renderer {
+    name: string
+    render: Template
 }
 
-export declare const Element: {
-    prototype: Element;
-    new(): Element;
+export declare const Renderer: {
+    prototype: Renderer;
+    new(): Renderer;
 };
 
-class QElement extends HTMLElement {}
+class Element extends HTMLElement {}
 
-export function use(name: string, template: Template, component: Component) {
-    const q_tag = `q-${name}`;
-    if (! customElements.get(q_tag)) {
-        customElements.define(q_tag, QElement);
+export function use(rendererType: typeof Renderer, prefix = 'q') {
+    const renderer = new rendererType;
+    const template = renderer.render;
+    const Component = component$(<T extends Props>(props: T) => template(props));
+    const tag = `${prefix}-${renderer.name}`;
+    if (! customElements.get(tag)) {
+        customElements.define(tag, Element);
     }
-    for (const q_elt of document.getElementsByTagName(q_tag)) {
-        const props: Record<string, any> = {};
-        const q_slot = q_elt.innerHTML;
-        const exp = /template\s*\(\{([^\(\)\{\}]+?)\}\)\s*(?:\=\>)?\s*\{?/mg
+    for (const elt of document.getElementsByTagName(tag)) {
+        const props: Props = {};
+        const slot = elt.innerHTML;
+        const exp = /render\s*\(\{([^\(\)\{\}]+?)\}\)\s*(?:\=\>)?\s*\{?/mg
         const reg = new RegExp(exp);
         const tpl = template.toString();
         const res = reg.exec(tpl);
         if (res) {
             const default_props = parse_props(res[1]);
             for (const [prop, default_val] of Object.entries(default_props)) {
-                const value = parse_val(q_elt.getAttribute(prop) || 'null') ?? default_val;
+                const value = parse_val(elt.getAttribute(prop) || 'null') ?? default_val;
                 props[prop] = value;
             };
         }
-        const QComponent = component;
         render(
-            q_elt,
-            <QComponent {...props}>
-                {q_slot}
-            </QComponent>,
+            elt,
+            <Component {...props}>
+                {slot}
+            </Component>,
         );
     }
 }
