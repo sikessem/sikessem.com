@@ -2,14 +2,14 @@ import { type QwikJSX, render, component$ } from "@builder.io/qwik";
 import { parse_props, parse_val } from './parser';
 
 export type Props = Record<any, any>;
-export type Template = <T extends Props>(props: T) => QwikJSX.Element | null;
+export type Template = <T extends Props>(props: T) => QwikJSX.Element;
 
 export interface Renderer {
     name: string
     render: Template
 }
 
-export declare const Renderer: {
+export declare const Renderer : {
     prototype: Renderer;
     new(): Renderer;
 };
