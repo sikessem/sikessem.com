@@ -66,12 +66,14 @@ export function make(elt: Element, props: Props, Comp: Component) {
             let attr = elt.getAttribute(`:${_prop}`);
             if (attr) {
                 _props[_prop] = parse_val(attr);
+                elt.removeAttribute(`:${_prop}`);
                 continue;
             }
 
             attr = elt.getAttribute(_prop);
             if (attr) {
                 _props[_prop] = attr;
+                elt.removeAttribute(_prop);
                 continue;
             }
 
