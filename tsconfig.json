@@ -1,16 +1,16 @@
 {
-    "include": ["resources/designs", "app", "src", "vendor/livewire/livewire"],
+    "include": ["app/**/*", "config/**/*", "packages/**/*", "tests/**/*"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "allowJs": true,
-        "target": "ES2017",
-        "module": "ES2020",
-        "lib": ["es2020", "DOM", "WebWorker", "DOM.Iterable"],
+        "target": "ESNext",
+        "module": "ESNext",
+        "lib": ["ESNext", "DOM", "WebWorker", "DOM.Iterable"],
         "skipLibCheck": true,
         "outDir": "tmp",
         "noEmit": true,
         "composite": true,
-        "moduleResolution": "bundler",
+        "moduleResolution": "Node",
         "esModuleInterop": true,
         "incremental": true,
         "isolatedModules": true,
@@ -40,17 +40,21 @@
         "jsx": "react-jsx",
         "jsxImportSource": "@builder.io/qwik",
         "typeRoots": [
-            "./resources/designs/types",
-            "./node_modules/@types",
-            "./node_modules"
+            "app/types",
+            "node_modules/@types",
+            "node_modules"
         ],
-        "types": ["node", "vite/client"],
+        "types": ["bun", "node", "vite/client"],
         "baseUrl": ".",
         "paths": {
-            "~/*": ["resources/designs/*"],
-            "App/*": ["app/*"],
-            "Sikessem/*": ["src/*"],
-        }
+            "@/*": ["app/*"],
+            "~/*": ["config/*"],
+        },
+        "allowArbitraryExtensions": true,
+        "verbatimModuleSyntax": true,
+        "assumeChangesOnlyAffectDirectDependencies": true,
+        "moduleDetection": "force",
+        "useUnknownInCatchVariables": true,
     },
-    "files": ["./.eslintrc.cjs"]
+    "files": ["./biome.json"]
 }

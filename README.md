@@ -4,7 +4,6 @@
 
 <br>
 
-[![php-icon]][php-link]
 [![typescript-icon]][typescript-link]
 [![javascript-icon]][javascript-link]
 [![packagist-version-icon]][packagist-version-link]
@@ -204,8 +203,6 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 
 [sikessem-logo]: https://github.com/sikessem/art/blob/HEAD/images/sikessem.svg
 [sikessem-link]: https://github.com/sikessem 'Sikessem'
-[php-icon]: https://img.shields.io/badge/PHP-ccc.svg?style=flat&logo=php
-[php-link]: https://github.com/sikessem/sikessem.com/search?l=php 'PHP code'
 [typescript-icon]: https://img.shields.io/badge/TypeScript-294E80.svg?logo=typescript
 [typescript-link]: https://github.com/sikessem/sikessem.com/search?l=typescript 'TypeScript code'
 [javascript-icon]: https://img.shields.io/badge/JavaScript-yellow.svg?logo=javascript
@@ -226,26 +223,8 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 [discuss-link]: https://github.com/orgs/sikessem/discussions
 [docs-link]: https://github.com/sikessem/sikessem.com#readme 'Website Documentation'
 [gfi]: https://github.com/sikessem/sikessem.com/labels/good%20first%20issue
-[php-home]: https://php.net
-[laravel-home]: https://laravel.com 'Laravel'
-[livewire-home]: https://laravel-livewire.com 'Laravel Livewire'
 [typescript-home]: https://www.typescriptlang.org 'TypeScript'
-[alpinejs-home]: https://alpinejs.dev 'Alpine.js'
 [tailwindcss-home]: https://tailwindcss.com 'TailwindCSS'
 [vitejs-home]: https://vitejs.dev 'Vite.js'
 [biome-home]: https://biomejs.dev 'Biome'
 [bun-home]: https://bun.sh 'Bun'
-[pint-home]: https://github.com/laravel/pint 'Laravel Pint'
-[phpstan-home]: https://phpstan.org 'PHPStan'
-[larastan-home]: https://github.com/nunomaduro/larastan 'Larastan'
-[rector-home]: https://getrector.com 'Rector'
-
-## Bun Server
-
-This app has a minimal [Bun server](https://bun.sh/docs/api/http) implementation. After running a full build, you can preview the build using the command:
-
-```
-bun run serve
-```
-
-Then visit [http://localhost:3000/](http://localhost:3000/)
