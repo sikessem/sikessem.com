@@ -16,18 +16,18 @@
   "homepage": "https://sikessem.com",
   "author": {
     "name": "Sigui Kessé Emmanuel",
-    "email": "contact@sigui.ci",
-    "url": "https://sigui.ci"
+    "email": "dev@sikessem.com",
+    "url": "https://sigui.deno.dev"
   },
   "scripts": {
+    "build": "tsc && vite build",
     "check": "bun run knip && bun run type && bun run ci",
     "ci": "biome ci .",
     "debug": "bun run check && bun run test",
-    "dev": "bun --bun vite",
     "e2e.install": "playwright install --with-deps",
     "e2e.report": "playwright show-report",
     "e2e.ui": "playwright test --ui",
-    "fix": "bun run format && bun run lint",
+    "fix": "bun run format.fix && bun run lint.fix && bun run knip.fix",
     "format": "biome format .",
     "format.fix": "biome format --write .",
     "inspect": "bun --inspect-brk ./node_modules/vite/bin/vite.js --force",
@@ -35,8 +35,7 @@
     "knip.fix": "knip --fix",
     "lint": "biome check .",
     "lint.fix": "biome check --apply-unsafe .",
-    "preview": "bun --bun vite preview --open",
-    "start": "bun --bun vite --open",
+    "start": "vite",
     "test": "bun run test.unit && bun run test.e2e",
     "test.e2e": "playwright test",
     "test.unit": "bun test",
@@ -44,20 +43,25 @@
     "test.hot": "bun test --hot",
     "test.watch": "bun test --watch",
     "type": "tsc --incremental --noEmit",
-    "qwik": "bun --bun qwik"
+    "qwik": "qwik"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
-    "@builder.io/qwik": "^1.4.4",
     "@playwright/test": "^1.41.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/alpinejs": "^3.13.6",
+    "@types/axios": "^0.14.0",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.17",
-    "autoprefixer": "^10.4.17",
-    "knip": "^4.5.0",
+    "alpinejs": "^3.13.5",
+    "axios": "^1.6.7",
+    "knip": "^5.0.1",
+    "laravel-vite-plugin": "^1.0.1",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",

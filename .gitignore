@@ -18,6 +18,10 @@ lerna-debug.log*
 # Build
 /lib/
 /lib-types/
+build/
+build-ssr/
+dist/
+dist-ssr/
 /server/
 /public/hot
 /public/storage
@@ -27,8 +31,6 @@ lerna-debug.log*
 # Development
 /node_modules/
 /vendor/
-dist
-dist-ssr
 *.local
 Homestead.json
 Homestead.yaml
@@ -36,7 +38,7 @@ Homestead.yaml
 # Environment
 .env
 .env.backup
-/pg.load
+.env.production
 
 # Cache
 *.cache
@@ -64,6 +66,7 @@ backup_*
 .vscode/*
 !.vscode/extensions.json
 .idea/
+.fleet/
 .DS_Store
 *.suo
 *.ntvs*

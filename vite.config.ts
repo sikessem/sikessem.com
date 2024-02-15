@@ -1,16 +1,18 @@
-import { qwikVite } from "@builder.io/qwik/optimizer";
+import laravel, { refreshPaths } from "laravel-vite-plugin";
 import {
   type ConfigEnv,
-  type ServerOptions,
   defineConfig,
   loadEnv,
 } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(({ mode }: ConfigEnv) => {
+export default defineConfig(({ mode, command }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const host = env.VITE_CONFIG_SERVER_HOST ?? "localhost";
-  const base = env.VITE_CONFIG_SERVER_BASE ?? "/";
+  const buildDirectory = env.VITE_CONFIG_BUILD_DIRECTORY || "static";
+  const host = env.VITE_CONFIG_SERVER_HOST || "localhost";
+  const base =
+    (env.VITE_CONFIG_SERVER_BASE || "/") +
+    (command === "build" ? buildDirectory : "");
   const port = Number(env.VITE_CONFIG_SERVER_PORT ?? 4000);
   const root = env.VITE_CONFIG_SERVER_ROOT;
 
@@ -18,31 +20,23 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     base,
     root,
     plugins: [
-      qwikVite({
-        csr: true,
+      laravel({
+        input: ["resources/styles/global.css", "resources/designs/app.ts"],
+        refresh: [...refreshPaths, "app/View/**"],
+        buildDirectory,
       }),
       tsconfigPaths(),
     ],
-    server: {
-      host,
-      port,
-      base,
-      headers: {
-        "Cache-Control": "public, max-age=0",
-      },
-    },
+    server: { host, port, base },
     preview: {
       headers: {
         "Cache-Control": "public, max-age=600",
       },
     },
-    build: {
-      manifest: "manifest.json",
-    },
     resolve: {
       alias: {
-        "@/": "/app",
-        "~/": "/config",
+        "@/": "/resources/assets",
+        "~/": "/resources/designs",
       },
     },
   };

@@ -1,0 +1,77 @@
+{
+    "name": "sikessem/website",
+    "description": "The Sikessem Website.",
+    "homepage": "https://packagist.org/packages/sikessem/website",
+    "keywords": [
+        "sikessem",
+        "php",
+        "website"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sigui Kessé Emmanuel",
+            "email": "dev@sikessem.com",
+            "homepage": "https://sigui.deno.dev"
+        }
+    ],
+    "support": {
+        "email": "support@sikessem.com",
+        "source": "https://github.com/sikessem/website",
+        "issues": "https://github.com/sikessem/website/issues",
+        "chat": "https://github.com/orgs/sikessem/discussions"
+    },
+    "require": {
+        "php": ">=8.3",
+        "guzzlehttp/guzzle": "^7.8",
+        "laravel/framework": "^10.43",
+        "laravel/jetstream": "^4.2",
+        "laravel/sanctum": "^3.3",
+        "laravel/tinker": "^2.9",
+        "livewire/livewire": "^3.4"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.27",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^7.10",
+        "pestphp/pest": "^2.33",
+        "pestphp/pest-plugin-laravel": "^2.2",
+        "spatie/laravel-ignition": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Abi\\": "packages/abi/lib/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "packages/abi/inc/main.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "abi": "@php abi"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.x-dev"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
