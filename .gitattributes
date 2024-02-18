@@ -1,9 +1,7 @@
 * text=auto
 
-*.blade.php diff=html
 *.css diff=css
 *.html diff=html
-*.php diff=php
 *.md diff=markdown
 *.mdx diff=markdown
 *.js diff=javascript

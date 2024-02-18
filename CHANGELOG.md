@@ -1,4 +1,4 @@
-# Release Notes for the Sikessem Website
+# Release Notes for the Sikessem App
 
 All notable changes to [sikessem.com](https://github.com/sikessem/sikessem.com) will be documented in this file.
 

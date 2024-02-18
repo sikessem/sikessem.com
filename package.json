@@ -20,10 +20,17 @@
     "url": "https://sigui.deno.dev"
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "qwik build",
+    "build.client": "vite build",
+    "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "vite build -c adapters/bun/vite.config.ts",
+    "build.types": "tsc --incremental --noEmit",
     "check": "bun run knip && bun run type && bun run ci",
     "ci": "biome ci .",
     "debug": "bun run check && bun run test",
+    "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
+    "dev": "vite --mode ssr",
+    "dev.debug": "bun --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "e2e.install": "playwright install --with-deps",
     "e2e.report": "playwright show-report",
     "e2e.ui": "playwright test --ui",
@@ -35,38 +42,43 @@
     "knip.fix": "knip --fix",
     "lint": "biome check .",
     "lint.fix": "biome check --apply-unsafe .",
-    "start": "vite",
+    "preview": "qwik build preview && vite preview --open",
+    "serve": "bun server/entry.bun.js",
+    "start": "vite --open --mode ssr",
     "test": "bun run test.unit && bun run test.e2e",
-    "test.e2e": "playwright test",
-    "test.unit": "bun test",
     "test.cov": "bun test --coverage",
+    "test.e2e": "playwright test",
     "test.hot": "bun test --hot",
+    "test.unit": "bun test",
     "test.watch": "bun test --watch",
     "type": "tsc --incremental --noEmit",
     "qwik": "qwik"
   },
   "workspaces": [
-    "packages/*"
+    "pkgs/*"
+  ],
+  "trustedDependencies": [
+    "sharp"
   ],
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
+    "@builder.io/qwik": "^1.4.5",
+    "@builder.io/qwik-city": "^1.4.5",
     "@playwright/test": "^1.41.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/alpinejs": "^3.13.6",
-    "@types/axios": "^0.14.0",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.17",
-    "alpinejs": "^3.13.5",
-    "axios": "^1.6.7",
+    "autoprefixer": "^10.4.17",
     "knip": "^5.0.1",
-    "laravel-vite-plugin": "^1.0.1",
-    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.35",
+    "styliz": "^0.0.2",
+    "tailwindcss": "3.4.1",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
-    "vite": "^5.1.1",
+    "vite": "^5.1.2",
     "vite-tsconfig-paths": "^4.3.1"
   }
 }

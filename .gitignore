@@ -65,6 +65,8 @@ backup_*
 # Editor
 .vscode/*
 !.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/*.code-snippets
 .idea/
 .fleet/
 .DS_Store

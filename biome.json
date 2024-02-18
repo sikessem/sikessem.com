@@ -5,12 +5,7 @@
     "ignore": [
       ".github",
       ".vscode",
-      "node_modules",
-      "vendor",
-      "bootstrap",
-      "database",
-      "public",
-      "storage"
+      "node_modules"
     ]
   },
   "linter": {
@@ -31,12 +26,7 @@
     "ignore": [
       ".github",
       ".vscode",
-      "node_modules",
-      "vendor",
-      "bootstrap",
-      "database",
-      "public",
-      "storage"
+      "node_modules"
     ]
   },
   "formatter": {
@@ -47,12 +37,7 @@
     "ignore": [
       ".github",
       ".vscode",
-      "node_modules",
-      "vendor",
-      "bootstrap",
-      "database",
-      "public",
-      "storage"
+      "node_modules"
     ]
   }
 }
