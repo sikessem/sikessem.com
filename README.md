@@ -42,6 +42,8 @@ The Sikessem Website.
     -   [🔐 Security Reports](#-security-reports)
     -   [📄 License](#-license)
 
+---
+
 ## 🎉 Getting Started
 
 ### ⚡️ Installation
@@ -60,43 +62,81 @@ Access the working directory:
 cd sikessem
 ```
 
-Install PHP dependencies:
-
-```shell
-composer install
-```
-
-Install JS / TS dependencies:
+Install dependencies:
 
 ```shell
 bun install
 ```
 
-🍱 Build assets
+### Project Structure
 
-The production build will generate client and server modules by running both client and server build commands:
+This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
+
+Inside your project, you'll see the following directory structure:
+
+```
+├── public/
+│   └── ...
+└── src/
+    ├── components/
+    │   └── ...
+    └── routes/
+        └── ...
+```
+
+- `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.
+
+- `src/components`: Recommended directory for components.
+
+- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
+
+### Add Integrations and deployment
+
+Use the `bun qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.builder.io/qwikcity/guides/static-site-generation/).
+
+```shell
+bun qwik add # or `bun qwik add`
+```
+
+### Development
+
+Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
+
+```shell
+bun start
+```
+
+> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
+
+### Preview
+
+The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
+
+```shell
+bun preview
+```
+
+### Production
+
+The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
 
 ```shell
 bun run build
 ```
 
-### 🗃️ Manage Database
-
-Install migrations:
-
-```shell
-php artisan migrate:install && php artisan migrate
-```
-
 ### 🌐 Starting server
 
-Run the server in development mode:
+This app has a minimal [Bun server](https://bun.sh/docs/api/http) implementation. After running a full build, you can preview the build using the command:
 
 ```shell
-php artisan serve --host=sikessem.local --port=8000
+bun serve
 ```
 
-Then visit [http://sikessem.local:8000/](http://sikessem.local:8000/)
+Then visit [http://sikessem.local:3000/](http://sikessem.local:3000/)
+
+### 🗃️ Manage Database
+
+[WIP]
 
 ### 🧪 Testing and debugging
 
@@ -108,20 +148,6 @@ Then visit [http://sikessem.local:8000/](http://sikessem.local:8000/)
 bun check
 ```
 
--   with **Pint**:
-
-```shell
-composer check
-```
-
-#### ⚗️ Run static analysis
-
--   Using **PHPStan**:
-
-```shell
-composer analyse
-```
-
 #### ✅ Run unit tests
 
 -   using **Bun**:
@@ -130,13 +156,7 @@ composer analyse
 bun run test
 ```
 
--   using **PEST**:
-
-```shell
-composer test
-```
-
-🚀 Execute end-to-end testing with **Playwright**:
+#### 🚀 Execute end-to-end testing with **Playwright**:
 
 ```shell
 bun e2e
@@ -144,25 +164,15 @@ bun e2e
 
 #### 🐛 Check all code bugs
 
--   Frontend:
-
 ```shell
 bun debug
 ```
 
--   Backend:
-
-```shell
-composer debug
-```
-
 ## 📋 Requirements
 
--   **Requires [PHP 8.3+](https://php.net/releases/)** (at least 8.3.1 recommended to avoid potential bugs).
--   **Requires [PostgreSQL 16.1+](https://www.postgresql.org/)** as Relational Database Management System.
--   **Requires [Bun 1.0+](https://bun.sh/)** (at least 1.0.22 recommended to avoid potential bugs).
--   **Requires [Composer >=2.6.6](https://getcomposer.org/)** to manage [PHP][php-link] dependencies.
--   **Requires [Git ~2.43.0](https://git-scm.com/)** to manage source code.
+-   **Requires [PostgreSQL 16.2+](https://www.postgresql.org/)** as Relational Database Management System.
+-   **Requires [Bun >=1.0](https://bun.sh/)** (at least 1.0.26 recommended to avoid potential bugs).
+-   **Requires [Git ~2.43.2](https://git-scm.com/)** to manage source code.
 
 ## 📖 Documentation
 
@@ -207,10 +217,6 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 [typescript-link]: https://github.com/sikessem/sikessem.com/search?l=typescript 'TypeScript code'
 [javascript-icon]: https://img.shields.io/badge/JavaScript-yellow.svg?logo=javascript
 [javascript-link]: https://github.com/sikessem/sikessem.com/search?l=javascript 'JavaScript code'
-[packagist-version-icon]: https://img.shields.io/packagist/v/sikessem/sikessem.com
-[packagist-version-link]: https://packagist.org/packages/sikessem/sikessem.com 'Website Releases'
-[packagist-download-icon]: https://img.shields.io/packagist/dt/sikessem/sikessem.com
-[packagist-download-link]: https://packagist.org/packages/sikessem/sikessem.com 'Website Downloads'
 [actions-icon]: https://github.com/sikessem/sikessem.com/workflows/Tests/badge.svg
 [actions-link]: https://github.com/sikessem/sikessem.com/actions 'Website status'
 [pr-icon]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=brightgreen
@@ -228,81 +234,3 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 [vitejs-home]: https://vitejs.dev 'Vite.js'
 [biome-home]: https://biomejs.dev 'Biome'
 [bun-home]: https://bun.sh 'Bun'
-
-
-
-# Qwik City App ⚡️
-
-- [Qwik Docs](https://qwik.builder.io/)
-- [Discord](https://qwik.builder.io/chat)
-- [Qwik GitHub](https://github.com/BuilderIO/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
-
----
-
-## Project Structure
-
-This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
-
-Inside your project, you'll see the following directory structure:
-
-```
-├── public/
-│   └── ...
-└── src/
-    ├── components/
-    │   └── ...
-    └── routes/
-        └── ...
-```
-
-- `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.
-
-- `src/components`: Recommended directory for components.
-
-- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
-
-## Add Integrations and deployment
-
-Use the `bun qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.builder.io/qwikcity/guides/static-site-generation/).
-
-```shell
-bun qwik add # or `bun qwik add`
-```
-
-## Development
-
-Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
-
-```shell
-npm start # or `bun start`
-```
-
-> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
-
-## Preview
-
-The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
-
-```shell
-bun preview # or `bun preview`
-```
-
-## Production
-
-The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
-
-```shell
-bun build # or `bun build`
-```
-
-## Bun Server
-
-This app has a minimal [Bun server](https://bun.sh/docs/api/http) implementation. After running a full build, you can preview the build using the command:
-
-```
-bun run serve
-```
-
-Then visit [http://localhost:3000/](http://localhost:3000/)
