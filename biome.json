@@ -5,6 +5,12 @@
     "ignore": [
       ".github",
       ".vscode",
+      "build",
+      "dist",
+      "tmp",
+      "public",
+      "client",
+      "server",
       "node_modules"
     ]
   },
@@ -18,6 +24,9 @@
         "noShoutyConstants": "warn",
         "noParameterAssign": "off"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
       "suspicious": {
         "noImplicitAnyLet": "off",
         "noExplicitAny": "off"
@@ -26,6 +35,12 @@
     "ignore": [
       ".github",
       ".vscode",
+      "build",
+      "dist",
+      "tmp",
+      "public",
+      "client",
+      "server",
       "node_modules"
     ]
   },
@@ -37,6 +52,12 @@
     "ignore": [
       ".github",
       ".vscode",
+      "build",
+      "dist",
+      "tmp",
+      "public",
+      "client",
+      "server",
       "node_modules"
     ]
   }
