@@ -10,7 +10,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        bun: [20.10.0]
+        bun: [1.0.26]
         experimental: [false]
     name: 🧪 CI Sikessem on Bun@${{ matrix.bun }} under ${{ matrix.os }}
 
@@ -18,15 +18,17 @@ jobs:
       - name: 🚚 Fetch code
         uses: actions/checkout@v4
 
-      - name: ⚡️ Setup Node
-        uses: actions/setup-node@v4
+      - name: 🔧 Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: ${{ matrix.node }}
+          bun-version: ${{ matrix.bun }}
 
-      - name: ⚗️ Install dependencies
+      - name: ⚡️ Install dependencies
         run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
+          bun install
 
       - name: 🍱 Compile assets
-        run: pnpm build
+        run: bun run build
+
+      - name: ✅ Check types
+        run: bun check
