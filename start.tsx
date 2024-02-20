@@ -1,5 +1,5 @@
-import path from "node:path";
-import serveFontend from "./design/server/entry.deno.js";
+import path from 'node:path';
+import serveFontend from './design/server/entry.deno.js';
 import { get_extension_type } from './mime.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {
@@ -23,14 +23,14 @@ Deno.serve(async (request: Request): Promise<Response> => {
         },
       });
     }
-  } catch(error) {
+  } catch (error) {
     if (
-      error !instanceof Deno.errors.NotFound &&
-      error !instanceof Deno.errors.IsADirectory
+      error! instanceof Deno.errors.NotFound &&
+      error! instanceof Deno.errors.IsADirectory
     ) {
       throw error;
     }
   }
 
-  return new Response("Welcome to Sikessem");
+  return new Response('Welcome to Sikessem');
 });

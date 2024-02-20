@@ -1,38 +1,37 @@
 {
-    "lock": false,
-    "nodeModulesDir": false,
-    "compilerOptions": {
-      "allowJs": true,
-      "lib": ["deno.window"],
-      "strict": true
-    },
-    "test": {
-      "include": ["tests/"],
-      "exclude": ["assets/"]
-    },
-    "lint": {
-      "exclude": ["assets/"],
-      "rules": { "tags": ["recommended"] }
-    },
-    "fmt": {
-      "useTabs": false,
-      "lineWidth": 80,
-      "indentWidth": 2,
-      "semiColons": true,
-      "singleQuote": true,
-      "proseWrap": "preserve",
-      "exclude": ["assets/"]
-    },
-    "exclude": ["**/assets/*"],
-    "imports": {
-      "$abi/": "./packages/abi/"
-    },
-    "tasks": {
-      "apply": "deno lint && deno fmt",
-      "build": "cd design && bun run build",
-      "check": "deno fmt --check && deno check **/*.ts*",
-      "serve": "deno run -A --unstable-kv start.tsx",
-      "start": "deno run -A --unstable-kv --watch start.tsx"
-    }
+  "lock": false,
+  "nodeModulesDir": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window"],
+    "strict": true
+  },
+  "test": {
+    "include": ["tests/"],
+    "exclude": ["assets/", "design/"]
+  },
+  "lint": {
+    "exclude": ["assets/", "design/"],
+    "rules": { "tags": ["recommended"] }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "exclude": ["assets/", "design/"]
+  },
+  "exclude": ["**/assets/*", "assets/**/*"],
+  "imports": {
+    "$abi/": "./packages/abi/"
+  },
+  "tasks": {
+    "apply": "deno lint && deno fmt",
+    "build": "cd design && bun run build",
+    "check": "deno fmt --check && deno check **/*.ts*",
+    "serve": "deno run -A --unstable-kv start.tsx",
+    "start": "deno run -A --unstable-kv --watch start.tsx"
   }
-  
+}
