@@ -77,7 +77,7 @@ jobs:
         run: ls -R ${{ env.OUT_DIR }}
 
       - name: ✅ Check files
-        run: deno task check
+        run: make check
       
       - name: 🧪 Test server
-        run: deno task serve > /dev/null 2>&1 &
+        run: make serve > /dev/null 2>&1 &
