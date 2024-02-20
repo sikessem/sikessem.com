@@ -30,8 +30,8 @@
   "tasks": {
     "apply": "deno lint && deno fmt",
     "build": "cd design && bun run build",
-    "check": "deno fmt --check && deno check **/*.ts*",
-    "serve": "deno run -A --unstable-kv start.tsx",
-    "start": "deno run -A --unstable-kv --watch start.tsx"
+    "check": "deno fmt --check && deno check **/*.ts",
+    "serve": "deno run -A --unstable-kv start.ts",
+    "start": "deno run -A --unstable-kv --watch start.ts"
   }
 }
