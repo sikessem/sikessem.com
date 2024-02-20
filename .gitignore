@@ -22,7 +22,7 @@ build/
 build-ssr/
 dist/
 dist-ssr/
-/design/server/
+/website/server/
 
 # Development
 node_modules/
