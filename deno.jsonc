@@ -21,7 +21,7 @@
     "semiColons": true,
     "singleQuote": true,
     "proseWrap": "preserve",
-    "exclude": ["assets/", "website/"]
+    "exclude": ["assets/", "website/", "README.md"]
   },
   "exclude": ["**/assets/*", "website/**/*"],
   "imports": {
