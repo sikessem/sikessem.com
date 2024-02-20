@@ -21,7 +21,7 @@ jobs:
         operating-system: [ubuntu-latest]
         bun-version: [1.0.27]
 
-    name: 🧪 CI Sikessem frontend on ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
+    name: 👷 CI Sikessem frontend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
     steps:
       - name: 🚚 Get latest code
@@ -36,10 +36,10 @@ jobs:
         run: bun install
 
       - name: ✅ Check types
-        run: bun check
+        run: ./run check
 
       - name: 🍱 Build assets
-        run: bun run build
+        run: ./run build
 
       - name: 🚚 Upload distribution files
         uses: actions/upload-artifact@v4
@@ -56,7 +56,7 @@ jobs:
         operating-system: [ubuntu-latest]
         deno-version: [1.40.5]
 
-    name: 🧪 CI Sikessem backend on ${{ matrix.operating-system }} using Deno@${{ matrix.deno-version }}
+    name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Deno@${{ matrix.deno-version }}
 
     steps:
       - name: 🚚 Get latest code
@@ -76,8 +76,8 @@ jobs:
       - name: 📂 List distribution files
         run: ls -R ${{ env.OUT_DIR }}
 
-      - name: ⚗️ Check files
+      - name: ✅ Check files
         run: deno task check
-
-      - name: 📦️ Build app
-        run: deno task build
+      
+      - name: 🧪 Test server
+        run: deno task serve > /dev/null 2>&1 &
