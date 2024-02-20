@@ -1,5 +1,5 @@
 import path from 'node:path';
-import serveFontend from './design/server/entry.deno.js';
+import serveFontend from './website/server/entry.deno.js';
 import { get_extension_type } from './mime.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {

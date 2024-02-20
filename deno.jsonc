@@ -8,10 +8,10 @@
   },
   "test": {
     "include": ["tests/"],
-    "exclude": ["assets/", "design/"]
+    "exclude": ["assets/", "website/"]
   },
   "lint": {
-    "exclude": ["assets/", "design/"],
+    "exclude": ["assets/", "website/"],
     "rules": { "tags": ["recommended"] }
   },
   "fmt": {
@@ -21,15 +21,15 @@
     "semiColons": true,
     "singleQuote": true,
     "proseWrap": "preserve",
-    "exclude": ["assets/", "design/"]
+    "exclude": ["assets/", "website/"]
   },
-  "exclude": ["**/assets/*", "assets/**/*"],
+  "exclude": ["**/assets/*", "website/**/*"],
   "imports": {
     "$abi/": "./packages/abi/"
   },
   "tasks": {
     "apply": "deno lint && deno fmt",
-    "build": "cd design && bun run build",
+    "build": "cd website && bun run build",
     "check": "deno fmt --check && deno check **/*.ts",
     "serve": "deno run -A --unstable-kv start.ts",
     "start": "deno run -A --unstable-kv --watch start.ts"

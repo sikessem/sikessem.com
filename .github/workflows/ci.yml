@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 env:
-  OUT_DIR: ./design
+  OUT_DIR: ./website
 
 jobs:
   frontend:
