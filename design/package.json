@@ -43,7 +43,7 @@
     "lint": "biome check .",
     "lint.fix": "biome check --apply-unsafe .",
     "preview": "qwik build preview && vite preview --open",
-    "serve": "deno run --allow-net --allow-read --allow-env server/entry.deno.js",
+    "serve": "cd app && deno task serve",
     "start": "vite --open --mode ssr",
     "test": "bun run test.unit && bun run test.e2e",
     "test.cov": "bun test --coverage",
@@ -54,9 +54,6 @@
     "type": "tsc --incremental --noEmit",
     "qwik": "qwik"
   },
-  "workspaces": [
-    "pkgs/*"
-  ],
   "trustedDependencies": [
     "sharp"
   ],

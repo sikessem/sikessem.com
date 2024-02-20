@@ -22,15 +22,10 @@ build/
 build-ssr/
 dist/
 dist-ssr/
-/server/
-/public/hot
-/public/storage
-/public/static/
-/storage/*.key
+/design/server/
 
 # Development
-/node_modules/
-/vendor/
+node_modules/
 *.local
 Homestead.json
 Homestead.yaml

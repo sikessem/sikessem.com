@@ -1,7 +1,7 @@
-import qwikServer from "./server/entry.deno.js";
+import serveFontend from "./design/server/entry.deno.js";
 
-Deno.serve(async (request) => {
-  const response = await (qwikServer(request) as Promise<Response>);
+Deno.serve(async (request: Request) => {
+  const response = await (serveFontend(request) as Promise<Response>);
   if (response.ok) {
     return response;
   }
