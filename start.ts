@@ -32,5 +32,7 @@ Deno.serve(async (request: Request): Promise<Response> => {
     }
   }
 
-  return new Response('Welcome to Sikessem');
+  return new Response('Error 404', {
+    status: 404,
+  });
 });
