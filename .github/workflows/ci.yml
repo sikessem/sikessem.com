@@ -1,34 +1,83 @@
 name: CI
 
-on: ['push']
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+env:
+  OUT_DIR: ./design
 
 jobs:
-  ci:
-    runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
+  frontend:
+    runs-on: ${{ matrix.operating-system }}
+
+    defaults:
+      run:
+        working-directory: ${{ env.OUT_DIR }}
+
     strategy:
-      fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        bun: [1.0.26]
-        experimental: [false]
-    name: 🧪 CI Sikessem on Bun@${{ matrix.bun }} under ${{ matrix.os }}
+        operating-system: [ubuntu-latest]
+        bun-version: [1.0.27]
+
+    name: 🧪 CI Sikessem frontend on ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
     steps:
-      - name: 🚚 Fetch code
+      - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
       - name: 🔧 Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: ${{ matrix.bun }}
+          bun-version: ${{ matrix.bun-version }}
 
       - name: ⚡️ Install dependencies
-        run: |
-          bun install
-
-      - name: 🍱 Compile assets
-        run: bun run build
+        run: bun install
 
       - name: ✅ Check types
         run: bun check
+
+      - name: 🍱 Build assets
+        run: bun run build
+
+      - name: 🚚 Upload distribution files
+        uses: actions/upload-artifact@v4
+        with:
+          name: out-dir
+          path: ${{ env.OUT_DIR }}
+
+  backend:
+    needs: frontend
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        deno-version: [1.40.5]
+
+    name: 🧪 CI Sikessem backend on ${{ matrix.operating-system }} using Deno@${{ matrix.deno-version }}
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🔨 Configure Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: 🚚 Download distribution files
+        uses: actions/download-artifact@v4
+        with:
+          name: out-dir
+          path: ${{ env.OUT_DIR }}
+
+      - name: 📂 List distribution files
+        run: ls -R ${{ env.OUT_DIR }}
+
+      - name: ⚗️ Check files
+        run: deno task check
+
+      - name: 📦️ Build app
+        run: deno task build
