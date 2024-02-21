@@ -1,34 +1,26 @@
-import path from 'node:path';
-import serveFontend from './website/server/entry.deno.js';
+import website from './website/server/entry.deno.js';
 import { get_extension_type } from './mime.ts';
+import { FileSystem } from '$abi/deno/FileSystem.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {
-  const response = await (serveFontend(request) as Promise<Response>);
+  const response = await (website(request) as Promise<Response>);
   if (response.ok) {
     return response;
   }
 
   const url = new URL(request.url);
   const pathname = decodeURIComponent(url.pathname);
+  const assets = new FileSystem(`${Deno.cwd()}/assets`);
 
-  try {
-    const asset = Deno.realPathSync(`${Deno.cwd()}/assets/${pathname}`);
-    if (Deno.statSync(asset).isFile) {
-      const file = Deno.readFileSync(asset);
-      const ext = path.extname(asset);
-      console.log(`Serve asset ${asset}`);
-      return new Response(file, {
+  if (assets.exists(pathname)) {
+    const asset = assets.fullpath(pathname);
+    if (asset.isFile) {
+      console.log(`Serve static asset ${asset.realname}`);
+      return new Response(Deno.readFileSync(asset.realname), {
         headers: {
-          'Content-Type': get_extension_type(ext),
+          'Content-Type': get_extension_type(asset.extension),
         },
       });
-    }
-  } catch (error) {
-    if (
-      error! instanceof Deno.errors.NotFound &&
-      error! instanceof Deno.errors.IsADirectory
-    ) {
-      throw error;
     }
   }
 

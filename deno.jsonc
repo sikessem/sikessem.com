@@ -3,8 +3,21 @@
   "nodeModulesDir": false,
   "compilerOptions": {
     "allowJs": true,
-    "lib": ["deno.window"],
-    "strict": true
+    "lib": ["deno.window", "deno.unstable"],
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "allowArbitraryExtensions": true,
+    "verbatimModuleSyntax": true
   },
   "test": {
     "include": ["tests/"],
