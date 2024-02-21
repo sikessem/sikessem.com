@@ -1,4 +1,10 @@
 {
-  "recommendations": ["dbaeumer.vscode-eslint", "unifiedjs.vscode-mdx"],
+  "recommendations": [
+    "denoland.vscode-deno",
+    "oven.bun-vscode",
+    "biomejs.biome",
+    "unifiedjs.vscode-mdx",
+    "bradlc.vscode-tailwindcss",
+  ],
   "unwantedRecommendations": []
 }
