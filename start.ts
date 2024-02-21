@@ -1,19 +1,21 @@
 import website from './website/server/entry.deno.js';
 import { FileSystem } from '$abi/deno/FileSystem.ts';
 import { FileRouter } from '$abi/deno/FileRouter.ts';
+import type { Handler } from '$abi/contracts/RouterContract.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {
-  let response = await (website(request) as Promise<Response>);
+  const fs_router = new FileRouter(new FileSystem(`${Deno.cwd()}/assets`));
+  const handlers: Handler[] = [
+    website as Handler,
+    fs_router.handle.bind(fs_router),
+  ];
 
-  if (response.ok) {
-    return response;
-  }
+  for (const handler of handlers) {
+    const response = await handler(request);
 
-  const assets = new FileSystem(`${Deno.cwd()}/assets`);
-  response = new FileRouter(assets).handle(request);
-
-  if (response.ok) {
-    return response;
+    if (response.ok) {
+      return response;
+    }
   }
 
   return new Response('Error 404', {
