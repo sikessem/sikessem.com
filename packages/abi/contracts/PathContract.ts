@@ -1,10 +1,21 @@
-import type { PathInfoContract } from './PathInfoContract.ts';
+export interface PathInfo {
+  isFile: boolean;
+  isDirectory: boolean;
+  isSymlink: boolean;
+  size: number;
+  mtime: Date | null;
+  atime: Date | null;
+  birthtime: Date | null;
+  extension: string;
+  basename: string;
+  dirname: string;
+}
 
 export interface PathContract {
   get name(): string;
   set name(name: string);
   get realname(): string;
-  get info(): PathInfoContract;
+  get info(): PathInfo;
   get isAbsolute(): boolean;
   get isFile(): boolean;
   get isDirectory(): boolean;

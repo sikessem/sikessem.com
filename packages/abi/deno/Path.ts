@@ -6,10 +6,10 @@ import {
   isAbsolute,
   normalize,
 } from 'https://deno.land/std@0.216.0/path/mod.ts';
-import type { PathInfoContract } from '../contracts/PathInfoContract.ts';
+import type { PathInfo } from '../contracts/PathContract.ts';
 
 export class Path extends BasePath {
-  override get info(): PathInfoContract {
+  override get info(): PathInfo {
     return {
       ...Deno.lstatSync(this.name),
       extension: this.extension,
