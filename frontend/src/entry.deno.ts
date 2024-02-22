@@ -1,5 +1,5 @@
 // @ts-ignore
-import { serve } from "std@0.192.0/http/server.ts";
+import { serve } from "https://deno.land/std/http/server.ts";
 /*
  * WHAT IS THIS FILE?
  *

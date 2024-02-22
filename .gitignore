@@ -22,7 +22,7 @@ build/
 build-ssr/
 dist/
 dist-ssr/
-/website/server/
+out/
 
 # Development
 node_modules/
@@ -61,6 +61,7 @@ backup_*
 .vscode/*
 !.vscode/extensions.json
 !.vscode/launch.json
+!.vscode/settings.json
 !.vscode/*.code-snippets
 .idea/
 .fleet/

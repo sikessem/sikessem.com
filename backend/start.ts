@@ -1,7 +1,7 @@
-import website from './website/server/entry.deno.js';
-import { FileSystem } from '$abi/deno/FileSystem.ts';
-import { FileRouter } from '$abi/deno/FileRouter.ts';
-import type { Handler } from '$abi/contracts/RouterContract.ts';
+import website from '../frontend/out/server/entry.deno.js';
+import { FileSystem } from '$abi/FileSystem.ts';
+import { FileRouter } from '$abi/FileRouter.ts';
+import type { Handler } from '$abi/core/contracts/RouterContract.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {
   const fs_router = new FileRouter(new FileSystem(`${Deno.cwd()}/assets`));

@@ -1,4 +1,4 @@
-import type { PathContract } from './PathContract.ts';
+import type { PathContract } from "./PathContract";
 
 export interface FileSystemContract {
   get root(): string;

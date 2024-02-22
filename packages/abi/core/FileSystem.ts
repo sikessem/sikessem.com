@@ -1,5 +1,5 @@
-import type { FileSystemContract } from './contracts/FileSystemContract.ts';
-import type { PathContract } from '$abi/contracts/PathContract.ts';
+import type { FileSystemContract } from "./contracts/FileSystemContract";
+import type { PathContract } from "./contracts/PathContract";
 
 export abstract class FileSystem implements FileSystemContract {
   constructor(public root: string) {}

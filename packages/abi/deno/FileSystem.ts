@@ -1,7 +1,7 @@
-import { FileSystem as BaseFileSystem } from '../FileSystem.ts';
-import { Path } from './Path.ts';
-import { existsSync } from 'https://deno.land/std@0.216.0/fs/mod.ts';
-import type { PathContract } from '$abi/contracts/PathContract.ts';
+import { existsSync } from "https://deno.land/std/fs/mod.ts";
+import { FileSystem as BaseFileSystem } from "./core/FileSystem.ts";
+import type { PathContract } from "./core/contracts/PathContract.ts";
+import { Path } from "./Path.ts";
 
 export class FileSystem extends BaseFileSystem {
   exists(pathname: string): boolean {

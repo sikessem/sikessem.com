@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 env:
-  OUT_DIR: ./website
+  OUT_DIR: out
 
 jobs:
   frontend:
@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ${{ env.OUT_DIR }}
+        working-directory: frontend
 
     strategy:
       matrix:
@@ -41,6 +41,9 @@ jobs:
       - name: 🍱 Build assets
         run: ./run build
 
+      - name: 📂 List ${{ env.OUT_DIR }}
+        run: ls -R ${{ env.OUT_DIR }}
+
       - name: 🚚 Upload distribution files
         uses: actions/upload-artifact@v4
         with:
@@ -50,6 +53,10 @@ jobs:
   backend:
     needs: frontend
     runs-on: ${{ matrix.operating-system }}
+
+    defaults:
+      run:
+        working-directory: backend
 
     strategy:
       matrix:
@@ -73,11 +80,11 @@ jobs:
           name: out-dir
           path: ${{ env.OUT_DIR }}
 
-      - name: 📂 List distribution files
+      - name: 📂 List ${{ env.OUT_DIR }}
         run: ls -R ${{ env.OUT_DIR }}
 
       - name: ✅ Check files
-        run: make check
+        run: ./task check
       
       - name: 🧪 Test server
-        run: make serve > /dev/null 2>&1 &
+        run: ./task serve > /dev/null 2>&1 &

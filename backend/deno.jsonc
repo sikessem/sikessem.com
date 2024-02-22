@@ -20,11 +20,10 @@
     "verbatimModuleSyntax": true
   },
   "test": {
-    "include": ["tests/"],
-    "exclude": ["assets/", "website/"]
+    "exclude": ["assets/", "frontend/"]
   },
   "lint": {
-    "exclude": ["assets/", "website/"],
+    "exclude": ["assets/", "frontend/"],
     "rules": { "tags": ["recommended"] }
   },
   "fmt": {
@@ -34,24 +33,17 @@
     "semiColons": true,
     "singleQuote": true,
     "proseWrap": "preserve",
-    "exclude": ["assets/", "website/", "README.md"]
+    "exclude": ["assets/", "frontend/", "README.md"]
   },
-  "exclude": ["**/assets/*", "website/**/*"],
+  "exclude": ["**/assets/*"],
   "imports": {
-    "$abi/": "./packages/abi/"
+    "$abi/": "../packages/abi/deno/",
+    "https://deno.land/std/": "https://deno.land/std@0.216.0/"
   },
   "tasks": {
     "apply": "deno lint && deno fmt",
     "check": "deno fmt --check && deno check **/*.ts",
     "serve": "deno run -A --unstable-kv start.ts",
-    "start": "deno run -A --unstable-kv --watch start.ts",
-    "website:install": "cd website && bun install",
-    "website:update": "cd website && bun update",
-    "website:check": "cd website && ./run check",
-    "website:apply": "cd website && ./run apply",
-    "website:build": "cd website && ./run build",
-    "website:build:client": "cd website && ./run build.client",
-    "website:build:server": "cd website && ./run build.server",
-    "website:start": "cd website && ./run start"
+    "start": "deno run -A --unstable-kv --watch start.ts"
   }
 }

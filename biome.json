@@ -1,18 +1,7 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "organizeImports": {
     "enabled": true,
-    "ignore": [
-      ".github",
-      ".vscode",
-      "build",
-      "dist",
-      "tmp",
-      "public",
-      "client",
-      "server",
-      "node_modules"
-    ]
+    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
   },
   "linter": {
     "enabled": true,
@@ -32,33 +21,13 @@
         "noExplicitAny": "off"
       }
     },
-    "ignore": [
-      ".github",
-      ".vscode",
-      "build",
-      "dist",
-      "tmp",
-      "public",
-      "client",
-      "server",
-      "node_modules"
-    ]
+    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "lineWidth": 80,
-    "ignore": [
-      ".github",
-      ".vscode",
-      "build",
-      "dist",
-      "tmp",
-      "public",
-      "client",
-      "server",
-      "node_modules"
-    ]
+    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
   }
 }

@@ -1,4 +1,4 @@
-import type { PathContract, PathInfo } from './contracts/PathContract.ts';
+import type { PathContract, PathInfo } from "./contracts/PathContract";
 
 export abstract class Path implements PathContract {
   constructor(public name: string) {}

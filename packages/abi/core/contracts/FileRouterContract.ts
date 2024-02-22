@@ -1,5 +1,5 @@
-import type { FileSystemContract } from './FileSystemContract.ts';
-import type { RouterContract } from './RouterContract.ts';
+import type { FileSystemContract } from "./FileSystemContract";
+import type { RouterContract } from "./RouterContract";
 
 export interface FileRouterContract extends RouterContract {
   get fs(): FileSystemContract;

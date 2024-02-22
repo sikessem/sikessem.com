@@ -1,35 +1,15 @@
-# Make frontend
+.PHONY: install check serve
 
-.PHONY: website/install website/check website/build
+install: node_modules bun.lockb
 
-website/install: website/node_modules website/bun.lockb
+node_modules: package.json
+	bun install
 
-website/node_modules: website/package.json
-	deno task website:install
+bun.lockb: package.json
+	bun update
 
-website/bun.lockb: website/package.json
-	deno task website:update
+check: install
+	bun check
 
-website/check: website/install
-	deno task website:check
-
-website/build: website/install
-	deno task website:build
-
-# Make backend
-
-.PHONY: website check apply start serve
-
-website: website/build
-
-apply: website
-	deno task apply
-
-check: website
-	deno task check
-
-start: website
-	deno task start
-
-serve: website
-	deno task serve
+serve: install
+	bun serve

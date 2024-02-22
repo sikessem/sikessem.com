@@ -1,12 +1,12 @@
-import { Path as BasePath } from '../Path.ts';
 import {
   basename,
   dirname,
   extname,
   isAbsolute,
   normalize,
-} from 'https://deno.land/std@0.216.0/path/mod.ts';
-import type { PathInfo } from '../contracts/PathContract.ts';
+} from "https://deno.land/std/path/mod.ts";
+import { Path as BasePath } from "../core/Path.ts";
+import type { PathInfo } from "../core/contracts/PathContract.ts";
 
 export class Path extends BasePath {
   override get info(): PathInfo {
