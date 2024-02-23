@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 env:
-  OUT_DIR: out
+  OUT_DIR: frontend/out
 
 jobs:
   frontend:
