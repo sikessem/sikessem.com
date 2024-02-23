@@ -41,8 +41,8 @@ jobs:
       - name: 🍱 Build assets
         run: ./run build
 
-      - name: 📂 List ${{ env.OUT_DIR }}
-        run: ls -R ${{ env.OUT_DIR }}
+      - name: 📂 List ../${{ env.OUT_DIR }}
+        run: ls -R ../${{ env.OUT_DIR }}
 
       - name: 🚚 Upload distribution files
         uses: actions/upload-artifact@v4
@@ -80,8 +80,8 @@ jobs:
           name: out-dir
           path: ${{ env.OUT_DIR }}
 
-      - name: 📂 List ${{ env.OUT_DIR }}
-        run: ls -R ${{ env.OUT_DIR }}
+      - name: 📂 List ../${{ env.OUT_DIR }}
+        run: ls -R ../${{ env.OUT_DIR }}
 
       - name: ✅ Check files
         run: ./task check
