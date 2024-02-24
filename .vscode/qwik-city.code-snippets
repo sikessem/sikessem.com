@@ -1,0 +1,55 @@
+{
+  "onRequest": {
+    "scope": "javascriptreact,typescriptreact",
+    "prefix": "qonRequest",
+    "description": "onRequest function for a route index",
+    "body": [
+      "export const onRequest: RequestHandler = (request) => {",
+      "  $0",
+<<<<<<< HEAD
+      "};",
+    ],
+=======
+      "};"
+    ]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
+  },
+  "loader$": {
+    "scope": "javascriptreact,typescriptreact",
+    "prefix": "qloader$",
+    "description": "loader$()",
+<<<<<<< HEAD
+    "body": ["export const $1 = routeLoader$(() => {", "  $0", "});"],
+=======
+    "body": ["export const $1 = routeLoader$(() => {", "  $0", "});"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
+  },
+  "action$": {
+    "scope": "javascriptreact,typescriptreact",
+    "prefix": "qaction$",
+    "description": "action$()",
+<<<<<<< HEAD
+    "body": ["export const $1 = routeAction$((data) => {", "  $0", "});"],
+=======
+    "body": ["export const $1 = routeAction$((data) => {", "  $0", "});"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
+  },
+  "Full Page": {
+    "scope": "javascriptreact,typescriptreact",
+    "prefix": "qpage",
+    "description": "Simple page component",
+    "body": [
+      "import { component$ } from '@builder.io/qwik';",
+      "",
+      "export default component$(() => {",
+      "  $0",
+<<<<<<< HEAD
+      "});",
+    ],
+  },
+=======
+      "});"
+    ]
+  }
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
+}

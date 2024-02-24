@@ -1,0 +1,73 @@
+{
+  "name": "sikessem.com",
+  "private": true,
+  "engines": {
+    "bun": ">=1.0.29",
+    "node": "prefer using bun",
+    "npm": "prefer using bun",
+    "pnpm": "prefer using bun",
+    "yarn": "prefer using bun"
+  },
+  "packageManager": "bun@1.0.29",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://sikessem.com",
+  "author": {
+    "name": "Sigui Kessé Emmanuel",
+    "email": "dev@sikessem.com",
+    "url": "https://sigui.deno.dev"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "apply": "bun frontend:apply && bun backend:apply",
+    "backend:check": "cd backend && ./task check",
+    "backend:apply": "cd backend && ./task apply",
+    "backend:serve": "cd backend && ./task serve",
+    "backend:start": "cd backend && ./task start",
+    "check": "knip && biome ci && bun frontend:check && bun backend:check",
+    "ci": "biome ci .",
+    "debug": "bun run check && bun run test",
+    "denoify": "denoify --src packages/abi/core --out packages/abi/deno/core",
+    "e2e.install": "playwright install --with-deps",
+    "e2e.report": "playwright show-report",
+    "e2e.ui": "playwright test --ui",
+    "fix": "bun run format.fix && bun run lint.fix && bun run knip.fix",
+    "format": "biome format .",
+    "format.fix": "biome format --write .",
+    "frontend:install": "cd frontend && bun install",
+    "frontend:update": "cd frontend && bun update",
+    "frontend:check": "cd frontend && ./run check",
+    "frontend:apply": "cd frontend && ./run apply",
+    "frontend:build": "cd frontend && ./run build",
+    "frontend:build:client": "cd frontend && ./run build.client",
+    "frontend:build:server": "cd frontend && ./run build.server",
+    "frontend:start": "cd frontend && ./run start",
+    "knip": "knip",
+    "knip.fix": "knip --fix",
+    "lint": "biome check .",
+    "lint.fix": "biome check --apply-unsafe .",
+    "start": "bun frontend:build && bun denoify && bun backend:start",
+    "serve": "bun frontend:build && bun denoify && bun backend:serve",
+    "test": "bun run test.unit && bun run test.e2e",
+    "test.cov": "bun test --coverage",
+    "test.e2e": "playwright test",
+    "test.hot": "bun test --hot",
+    "test.unit": "bun test",
+    "test.watch": "bun test --watch",
+    "type": "tsc --incremental --noEmit"
+  },
+  "trustedDependencies": [
+    "sharp"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@playwright/test": "^1.41.2",
+    "@types/bun": "^1.0.7",
+    "@types/node": "^20.11.20",
+    "denoify": "^1.6.9",
+    "knip": "^5.0.2"
+  }
+}

@@ -1,0 +1,81 @@
+# Binaries
+/sikessem
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
+
+# Logs
+logs
+*.log
+*-debug.log*
+*-error.log*
+
+# Build
+/lib/
+/lib-types/
+build/
+build-ssr/
+dist/
+dist-ssr/
+out/
+
+# Development
+node_modules/
+*.local
+Homestead.json
+Homestead.yaml
+
+# Environment
+.env
+.env.backup
+.env.production
+
+# Cache
+*.cache
+*.tmp
+tmp/
+.mf
+.rollup.cache
+tsconfig.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+error_log*
+
+# Backups
+*.backup
+backup_*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/*.code-snippets
+.idea/
+.fleet/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# Yarn
+.yarn/*
+!.yarn/releases
+
+# Tests
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/coverage

@@ -1,0 +1,49 @@
+{
+  "lock": false,
+  "nodeModulesDir": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window", "deno.unstable"],
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "allowArbitraryExtensions": true,
+    "verbatimModuleSyntax": true
+  },
+  "test": {
+    "exclude": ["assets/", "frontend/"]
+  },
+  "lint": {
+    "exclude": ["assets/", "frontend/"],
+    "rules": { "tags": ["recommended"] }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "exclude": ["assets/", "frontend/", "README.md"]
+  },
+  "exclude": ["**/assets/*"],
+  "imports": {
+    "$abi/": "../packages/abi/deno/",
+    "https://deno.land/std/": "https://deno.land/std@0.217.0/"
+  },
+  "tasks": {
+    "apply": "deno lint && deno fmt",
+    "check": "deno fmt --check && deno check **/*.ts",
+    "serve": "deno run -A --unstable-kv start.ts",
+    "start": "deno run -A --unstable-kv --watch start.ts"
+  }
+}
