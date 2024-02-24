@@ -1,5 +1,5 @@
 {
-    "include": ["packages/**/*", "packages/abi/core/contracts", "packages/abi/core/FileRouter.ts", "packages/abi/FileSystem.ts", "packages/abi/core/mime.ts", "packages/abi/Routercore/common/Path.tsPath.ts"],
+    "include": ["packages/**/*"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "allowJs": true,

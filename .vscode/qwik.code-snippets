@@ -6,8 +6,13 @@
     "body": [
       "export const ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}} = component$(() => {",
       "  return <${2:div}>$4</$2>",
+<<<<<<< HEAD
       "});",
     ],
+=======
+      "});"
+    ]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "Qwik component (props)": {
     "scope": "typescriptreact",
@@ -25,32 +30,53 @@
       "      $6",
       "    </${3}>",
       "  );",
+<<<<<<< HEAD
       "});",
     ],
+=======
+      "});"
+    ]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "Qwik signal": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "quseSignal",
     "description": "useSignal() declaration",
+<<<<<<< HEAD
     "body": ["const ${1:foo} = useSignal($2);", "$0"],
+=======
+    "body": ["const ${1:foo} = useSignal($2);", "$0"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "Qwik store": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "quseStore",
     "description": "useStore() declaration",
+<<<<<<< HEAD
     "body": ["const ${1:state} = useStore({", "  $2", "});", "$0"],
+=======
+    "body": ["const ${1:state} = useStore({", "  $2", "});", "$0"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "$ hook": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "q$",
     "description": "$() function hook",
+<<<<<<< HEAD
     "body": ["$(() => {", "  $0", "});", ""],
+=======
+    "body": ["$(() => {", "  $0", "});", ""]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "useVisibleTask": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "quseVisibleTask",
     "description": "useVisibleTask$() function hook",
+<<<<<<< HEAD
     "body": ["useVisibleTask$(({ track }) => {", "  $0", "});", ""],
+=======
+    "body": ["useVisibleTask$(({ track }) => {", "  $0", "});", ""]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "useTask": {
     "scope": "javascriptreact,typescriptreact",
@@ -61,8 +87,13 @@
       "  track(() => $1);",
       "  $0",
       "});",
+<<<<<<< HEAD
       "",
     ],
+=======
+      ""
+    ]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "useResource": {
     "scope": "javascriptreact,typescriptreact",
@@ -72,7 +103,13 @@
       "const $1 = useResource$(({ track, cleanup }) => {",
       "  $0",
       "});",
+<<<<<<< HEAD
       "",
     ],
   },
+=======
+      ""
+    ]
+  }
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
 }

@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
+<<<<<<< HEAD
       "name": "Launch Chrome",
       "request": "launch",
       "type": "chrome",
@@ -12,6 +13,8 @@
       "webRoot": "${workspaceFolder}"
     },
     {
+=======
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
       "type": "node",
       "name": "dev.debug",
       "request": "launch",

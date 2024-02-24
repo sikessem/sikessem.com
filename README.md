@@ -43,21 +43,7 @@ The Sikessem Website.
 
 ## 🎉 Getting Started
 
-### ⚡️ Installation
-
-[Use this template](https://github.com/sikessem/sikessem.com/generate) or create a new [Sikessem project](https://packagist.org/packages/sikessem/sikessem.com) via the [Composer](https://getcomposer.org/) `create-project` command (recommended):
-
-```shell
-composer create-project sikessem/sikessem.com sikessem
-```
-
-Where **_sikessem_** is the name of your app.
-
-Access the working directory:
-
-```shell
-cd sikessem
-```
+### Installation
 
 Install dependencies:
 

@@ -6,20 +6,33 @@
     "body": [
       "export const onRequest: RequestHandler = (request) => {",
       "  $0",
+<<<<<<< HEAD
       "};",
     ],
+=======
+      "};"
+    ]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "loader$": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "qloader$",
     "description": "loader$()",
+<<<<<<< HEAD
     "body": ["export const $1 = routeLoader$(() => {", "  $0", "});"],
+=======
+    "body": ["export const $1 = routeLoader$(() => {", "  $0", "});"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "action$": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "qaction$",
     "description": "action$()",
+<<<<<<< HEAD
     "body": ["export const $1 = routeAction$((data) => {", "  $0", "});"],
+=======
+    "body": ["export const $1 = routeAction$((data) => {", "  $0", "});"]
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
   },
   "Full Page": {
     "scope": "javascriptreact,typescriptreact",
@@ -30,7 +43,13 @@
       "",
       "export default component$(() => {",
       "  $0",
+<<<<<<< HEAD
       "});",
     ],
   },
+=======
+      "});"
+    ]
+  }
+>>>>>>> d9a3256 (:tada: Begin the Sikessem web app)
 }
