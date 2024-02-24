@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        bun-version: [1.0.27]
+        bun-version: [1.0.29]
 
     name: 👷 CI Sikessem frontend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
@@ -57,7 +57,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        bun-version: [1.0.27]
+        bun-version: [1.0.29]
 
     name: 👷 CI Sikessem packages under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
@@ -99,7 +99,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        deno-version: [1.40.5]
+        deno-version: [1.41.0]
 
     name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Deno@${{ matrix.deno-version }}
 

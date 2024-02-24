@@ -132,7 +132,7 @@ This app has a minimal [Bun server](https://bun.sh/docs/api/http) implementation
 bun serve
 ```
 
-Then visit [http://sikessem.local:3000/](http://sikessem.local:3000/)
+Then visit [sikessem.local:8080/](sikessem.local:8080/)
 
 ### 🗃️ Manage Database
 
@@ -170,8 +170,8 @@ bun debug
 
 ## 📋 Requirements
 
--   **Requires [PostgreSQL 16.2+](https://www.postgresql.org/)** as Relational Database Management System.
--   **Requires [Bun >=1.0](https://bun.sh/)** (at least 1.0.26 recommended to avoid potential bugs).
+-   **Requires [Deno ^1.41](https://deno.land/)** (at least 1.41.0 recommended to avoid potential bugs).
+-   **Requires [Bun ^1.0](https://bun.sh/)** (at least 1.0.29 recommended to avoid potential bugs).
 -   **Requires [Git ~2.43.2](https://git-scm.com/)** to manage source code.
 
 ## 📖 Documentation
@@ -234,13 +234,3 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 [vitejs-home]: https://vitejs.dev 'Vite.js'
 [biome-home]: https://biomejs.dev 'Biome'
 [bun-home]: https://bun.sh 'Bun'
-
-## Deno Server
-
-This app has a minimal [Deno server](https://deno.com/manual/examples/http_server) implementation. After running a full build, you can preview the build using the command:
-
-```
-bun serve
-```
-
-Then visit [http://localhost:8080/](http://localhost:8080/)

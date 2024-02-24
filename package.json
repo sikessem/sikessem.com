@@ -2,13 +2,13 @@
   "name": "sikessem.com",
   "private": true,
   "engines": {
-    "bun": ">=1.0.0",
+    "bun": ">=1.0.29",
     "node": "prefer using bun",
     "npm": "prefer using bun",
     "pnpm": "prefer using bun",
     "yarn": "prefer using bun"
   },
-  "packageManager": "bun@1.0.27",
+  "packageManager": "bun@1.0.29",
   "publishConfig": {
     "access": "public"
   },
@@ -19,6 +19,7 @@
     "url": "https://sigui.deno.dev"
   },
   "scripts": {
+    "apply": "bun frontend:apply && bun backend:apply",
     "backend:check": "cd backend && ./task check",
     "backend:apply": "cd backend && ./task apply",
     "backend:serve": "cd backend && ./task serve",
@@ -61,9 +62,9 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@playwright/test": "^1.41.2",
-    "@types/bun": "^1.0.6",
-    "@types/node": "^20.11.19",
+    "@types/bun": "^1.0.7",
+    "@types/node": "^20.11.20",
     "denoify": "^1.6.9",
-    "knip": "^5.0.1"
+    "knip": "^5.0.2"
   }
 }

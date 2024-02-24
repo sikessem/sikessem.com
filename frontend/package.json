@@ -3,13 +3,13 @@
   "private": true,
   "type": "module",
   "engines": {
-    "bun": ">=1.0.28",
+    "bun": ">=1.0.29",
     "node": "prefer using bun",
     "npm": "prefer using bun",
     "pnpm": "prefer using bun",
     "yarn": "prefer using bun"
   },
-  "packageManager": "bun@1.0.28",
+  "packageManager": "bun@1.0.29",
   "publishConfig": {
     "access": "public"
   },
@@ -57,8 +57,8 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/bun": "^1.0.6",
-    "@types/node": "^20.11.19",
+    "@types/bun": "^1.0.7",
+    "@types/node": "^20.11.20",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
     "styliz": "^0.0.2",

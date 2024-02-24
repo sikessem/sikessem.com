@@ -38,7 +38,7 @@
   "exclude": ["**/assets/*"],
   "imports": {
     "$abi/": "../packages/abi/deno/",
-    "https://deno.land/std/": "https://deno.land/std@0.216.0/"
+    "https://deno.land/std/": "https://deno.land/std@0.217.0/"
   },
   "tasks": {
     "apply": "deno lint && deno fmt",
