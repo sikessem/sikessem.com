@@ -5,9 +5,6 @@
 <br>
 
 [![typescript-icon]][typescript-link]
-[![javascript-icon]][javascript-link]
-[![packagist-version-icon]][packagist-version-link]
-[![packagist-download-icon]][packagist-download-link]
 [![license-icon]][license-link]
 [![actions-icon]][actions-link]
 [![pr-icon]][pr-link]
@@ -215,19 +212,17 @@ The Sikessem Website is open-sourced software licensed under the [MIT License](h
 [sikessem-link]: https://github.com/sikessem 'Sikessem'
 [typescript-icon]: https://img.shields.io/badge/TypeScript-294E80.svg?logo=typescript
 [typescript-link]: https://github.com/sikessem/sikessem.com/search?l=typescript 'TypeScript code'
-[javascript-icon]: https://img.shields.io/badge/JavaScript-yellow.svg?logo=javascript
-[javascript-link]: https://github.com/sikessem/sikessem.com/search?l=javascript 'JavaScript code'
-[actions-icon]: https://github.com/sikessem/sikessem.com/workflows/Tests/badge.svg
-[actions-link]: https://github.com/sikessem/sikessem.com/actions 'Website status'
+[actions-icon]: https://github.com/sikessem/sikessem.com/workflows/CI/badge.svg
+[actions-link]: https://github.com/sikessem/sikessem.com/actions 'Sikessem Web App status'
 [pr-icon]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=brightgreen
 [pr-link]: https://github.com/sikessem/.github/blob/HEAD/CONTRIBUTING.md 'PRs welcome!'
 [twitter-icon]: https://img.shields.io/twitter/follow/sikessem_tweets.svg?label=@sikessem_tweets
 [twitter-link]: https://twitter.com/intent/follow?screen_name=sikessem_tweets 'Ping Sikessem'
 [license-icon]: https://img.shields.io/badge/license-MIT-blue.svg
-[license-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/LICENSE 'Website License'
+[license-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/LICENSE 'Sikessem Web App License'
 [conduct-link]: https://github.com/sikessem/sikessem.com/blob/HEAD/CODE_OF_CONDUCT.md
 [discuss-link]: https://github.com/orgs/sikessem/discussions
-[docs-link]: https://github.com/sikessem/sikessem.com#readme 'Website Documentation'
+[docs-link]: https://github.com/sikessem/sikessem.com#readme 'Sikessem Web App Documentation'
 [gfi]: https://github.com/sikessem/sikessem.com/labels/good%20first%20issue
 [typescript-home]: https://www.typescriptlang.org 'TypeScript'
 [tailwindcss-home]: https://tailwindcss.com 'TailwindCSS'
