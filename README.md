@@ -51,6 +51,14 @@ Install dependencies:
 bun install
 ```
 
+### Environment
+
+Make and link the .env file:
+
+```shell
+make env
+```
+
 ### Project Structure
 
 This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
