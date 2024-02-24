@@ -18,6 +18,9 @@
     "email": "dev@sikessem.com",
     "url": "https://sigui.deno.dev"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "apply": "bun frontend:apply && bun backend:apply",
     "backend:check": "cd backend && ./task check",
