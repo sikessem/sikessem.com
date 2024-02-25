@@ -1,5 +1,5 @@
 import { get_extension_type } from "./base/mime.ts";
-import { BaseFileRouter } from "./base/routing.ts";
+import { BaseActionRouter, BaseFileRouter } from "./base/routing.ts";
 
 export class FileRouter extends BaseFileRouter {
   handle(request: Request): Response {
@@ -19,6 +19,22 @@ export class FileRouter extends BaseFileRouter {
     }
 
     return new Response(`File ${pathname} not found`, {
+      status: 404,
+    });
+  }
+}
+
+export class ActionRouter extends BaseActionRouter {
+  handle(request: Request): Response {
+    const url = new URL(request.url);
+    const pathname = decodeURIComponent(url.pathname);
+    const action = this.find(request.method, pathname);
+    if (action) {
+      console.log(`Handle action ${pathname}`);
+      return action.resolve(request);
+    }
+
+    return new Response(`Action ${pathname} not found`, {
       status: 404,
     });
   }
