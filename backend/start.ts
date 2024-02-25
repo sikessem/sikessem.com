@@ -27,6 +27,10 @@ Deno.serve(async (request: Request): Promise<Response> => {
 
   const actions_router = new ActionRouter();
   actions_router.onGet('/home', () => 'Welcome to my homepage');
+  actions_router.onGet(
+    '/users/[user:number=0]/profile',
+    (request: Request, user = 5) => `${request.method} User ${user}`,
+  );
   const actions_server = actions_router.handle.bind(actions_router);
   handlers.push(actions_server);
 

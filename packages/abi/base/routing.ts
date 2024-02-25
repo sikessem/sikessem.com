@@ -1,5 +1,6 @@
 import type { FileSystemContract } from "./file-system";
 import { Method } from "./method";
+import { parse_args } from "./parser";
 
 export type Handler = (request: Request) => Response | Promise<Response>;
 
@@ -36,7 +37,7 @@ export type Options = Record<Key, QueryValue>;
 export type Result = number | string | object | Response;
 export type Pattern = string;
 export type Actions = Record<Method, Action[]>;
-export type Resolver = (...context: unknown[]) => Result;
+export type Resolver = (...args: any[]) => Result;
 
 export class Action {
   protected options: Options = {};
@@ -49,7 +50,6 @@ export class Action {
   public matches(subject: string): boolean {
     let pattern = this.normalizedPattern();
     subject = this.normalize(subject);
-    console.log(`${pattern} => ${subject}`);
     if (pattern === subject) {
       return true;
     }
@@ -89,7 +89,6 @@ export class Action {
         this.options[i++] = value;
         this.options[param.name] = value;
       }
-      console.log(this.options);
       return true;
     }
 
@@ -112,9 +111,30 @@ export class Action {
   }
 
   public resolve(request: Request): Response {
-    console.log(this.resolver.toString());
-    const result = this.resolver(request);
+    const args = this.#resolveArgs(this.resolver.toString(), { request });
+    const result = this.resolver(...args);
     return this.render(result);
+  }
+
+  #resolveArgs<T extends Options>(callback: string, options?: T): Arguments {
+    const re =
+      /(?:[a-zA-Z$_]+[a-zA-Z0-9$_]*)?\s*\(([^\(\)]*?)\)\s*(?:\=\>)?\s*\{?/gm;
+    const args: Array = [];
+    const res = re.exec(callback);
+
+    if (res) {
+      const defaultArgs = parse_args(res[1]);
+      options = {
+        ...options,
+        ...this.options,
+      };
+      for (const [name, defaultValue] of Object.entries(defaultArgs)) {
+        const value = options[name] || defaultValue;
+        args.push(value);
+      }
+    }
+
+    return args;
   }
 
   public render(result: Result): Response {
