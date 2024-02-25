@@ -1,4 +1,4 @@
-import { FileRouter as BaseFileRouter } from "./core/FileRouter.ts";
+import { BaseFileRouter } from "./core/routing.ts";
 import { get_extension_type } from "./core/mime.ts";
 
 export class FileRouter extends BaseFileRouter {
