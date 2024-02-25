@@ -5,7 +5,7 @@ import {
   isAbsolute,
   normalize,
 } from "https://deno.land/std/path/mod.ts";
-import { BasePath, type PathInfo } from "./core/path.ts";
+import { BasePath, type PathInfo } from "./base/path.ts";
 
 export class Path extends BasePath {
   override get info(): PathInfo {

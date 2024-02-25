@@ -2,7 +2,7 @@ import { existsSync } from 'https://deno.land/std/fs/mod.ts';
 import { join } from 'https://deno.land/std/path/mod.ts';
 import { FileSystem } from '$abi/fs.ts';
 import { FileRouter } from '$abi/routing.ts';
-import type { Handler } from '$abi/core/routing.ts';
+import type { Handler } from '$abi/base/routing.ts';
 
 Deno.serve(async (request: Request): Promise<Response> => {
   const handlers: Handler[] = [];
