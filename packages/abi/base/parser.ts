@@ -1,4 +1,8 @@
 export function parse_val(val: string): any {
+  if (typeof val !== "string") {
+    return val;
+  }
+
   val = val.trim();
   const lc_val = val.toLowerCase();
   if (lc_val === "null") {

@@ -1,6 +1,6 @@
 import type { FileSystemContract } from "./file-system";
 import { Method } from "./method";
-import { parse_args } from "./parser";
+import { reflect } from "./reflex";
 
 export type Handler = (request: Request) => Response | Promise<Response>;
 
@@ -111,27 +111,25 @@ export class Action {
   }
 
   public resolve(request: Request): Response {
-    const args = this.#resolveArgs(this.resolver.toString(), { request });
+    const args = this.#resolveArgs(this.resolver, { request });
     const result = this.resolver(...args);
     return this.render(result);
   }
 
-  #resolveArgs<T extends Options>(callback: string, options?: T): Arguments {
-    const re =
-      /(?:[a-zA-Z$_]+[a-zA-Z0-9$_]*)?\s*\(([^\(\)]*?)\)\s*(?:\=\>)?\s*\{?/gm;
+  #resolveArgs<T extends Options>(
+    callback: typeof Function,
+    options?: T,
+  ): Arguments {
+    const reflection = reflect(callback);
     const args: Array = [];
-    const res = re.exec(callback);
 
-    if (res) {
-      const defaultArgs = parse_args(res[1]);
-      options = {
-        ...options,
-        ...this.options,
-      };
-      for (const [name, defaultValue] of Object.entries(defaultArgs)) {
-        const value = options[name] || defaultValue;
-        args.push(value);
-      }
+    options = {
+      ...options,
+      ...this.options,
+    };
+
+    for (const param of reflection.parameters) {
+      args.push(options[param.name] || param.value);
     }
 
     return args;
