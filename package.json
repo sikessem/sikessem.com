@@ -30,7 +30,7 @@
     "check": "knip && biome ci && bun frontend:check && bun backend:check",
     "ci": "biome ci .",
     "debug": "bun run check && bun run test",
-    "denoify": "denoify --src packages/abi/base --out packages/abi/deno/base",
+    "denoify": "rimraf packages/abi/deno/base && denoify --src packages/abi/base --out packages/abi/deno/base && rimraf packages/abi/deno/base/*.test.ts",
     "e2e.install": "playwright install --with-deps",
     "e2e.report": "playwright show-report",
     "e2e.ui": "playwright test --ui",
