@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import {
+import reflex, {
   Reflection,
   ReflectionFunction,
   ReflectionObject,
@@ -12,6 +12,20 @@ class Foo {
     return "baz";
   }
 }
+
+test("Reflex container", () => {
+  const container = reflex({
+    name: "Sigui",
+    username: "siguici",
+  });
+
+  expect(
+    container.call(
+      (name: string, username: string) =>
+        `I'm ${name} and my username is ${username}`,
+    ),
+  ).toEqual("I'm Sigui and my username is siguici");
+});
 
 test("Reflection function", () => {
   const arrow = (name = "Sigui") => `Hello ${name}`;

@@ -180,3 +180,49 @@ export class ReflectionReturnValue<T> extends ReflectionValue<T> {
     return this.func;
   }
 }
+
+export type Context = Record<string, any>;
+
+export class Container {
+  constructor(protected context: Context) {}
+
+  call<T>(
+    callback: typeof Function,
+    context: Context = {},
+  ): U extends T ? U : T {
+    return callback(...this.getArgs(callback, context));
+  }
+
+  getArgs(callback: typeof Function, context: Context = {}): any[] {
+    const reflection = reflect(callback);
+    const args: Array = [];
+
+    for (const param of reflection.parameters) {
+      args.push(this.get(param.name, param.value, context));
+    }
+
+    return args;
+  }
+
+  get<T>(id: string, defaultValue: T = undefined, context: Context = {}): T {
+    context = this.mergeContext(context);
+    return this.make(context[id] || defaultValue, context);
+  }
+
+  make<T>(value: T, context: Context = {}): U extends T ? U : T {
+    return typeof value === "function" || value instanceof Function
+      ? this.call(value, context)
+      : value;
+  }
+
+  mergeContext(context: Context): Context {
+    return {
+      ...context,
+      ...this.context,
+    };
+  }
+}
+
+export default function (context: Context) {
+  return new Container(context);
+}

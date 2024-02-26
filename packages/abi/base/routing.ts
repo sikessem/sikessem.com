@@ -1,6 +1,6 @@
 import type { FileSystemContract } from "./file-system";
 import { Method } from "./method";
-import { reflect } from "./reflex";
+import reflex from "./reflex";
 
 export type Handler = (request: Request) => Response | Promise<Response>;
 
@@ -111,28 +111,9 @@ export class Action {
   }
 
   public resolve(request: Request): Response {
-    const args = this.#resolveArgs(this.resolver, { request });
-    const result = this.resolver(...args);
+    const options = this.options;
+    const result = reflex({ request, options }).call(this.resolver, options);
     return this.render(result);
-  }
-
-  #resolveArgs<T extends Options>(
-    callback: typeof Function,
-    options?: T,
-  ): Arguments {
-    const reflection = reflect(callback);
-    const args: Array = [];
-
-    options = {
-      ...options,
-      ...this.options,
-    };
-
-    for (const param of reflection.parameters) {
-      args.push(options[param.name] || param.value);
-    }
-
-    return args;
   }
 
   public render(result: Result): Response {
