@@ -1,4 +1,4 @@
-import type { FileSystemContract } from "./file-system";
+import type { FileSystemContract } from "./fs";
 import { Method } from "./method";
 import reflex from "./reflex";
 
