@@ -13,8 +13,6 @@ logs
 *-error.log*
 
 # Build
-/lib/
-/lib-types/
 build/
 build-ssr/
 dist/

@@ -65,19 +65,22 @@ This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/over
 
 Inside your project, you'll see the following directory structure:
 
-<<<<<<< HEAD
 ```
-├── backend/
-│   └── ...
-├── frontend/
-│   ├── public/
+├── app/
+│   ├── backend/
 │   │   └── ...
-│   └── src/
-│       ├── components/
-│       │   └── ...
-│       └── routes/
-│           └── ...
-└── packages/
+│   ├── frontend/
+│   │   ├── adapters/
+│   │   │   └── ...
+│   │   ├── public/
+│   │   │   └── ...
+│   │   └── src/
+│   │       ├── components/
+│   │       │   └── ...
+│   │       └── routes/
+│   │           └── ...
+└── lib/
+    └── ...
 ```
 
 - `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.

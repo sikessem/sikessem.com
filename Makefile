@@ -3,13 +3,13 @@
 .env: .env.example
 	cp .env.example .env
 
-backend/.env: .env
-	ln -s .env backend/.env
+app/backend/.env: .env
+	ln -s .env app/backend/.env
 
-frontend/.env: .env
-	ln -s .env frontend/.env
+app/frontend/.env: .env
+	ln -s .env app/frontend/.env
 
-env: backend/.env frontend/.env
+env: app/backend/.env app/frontend/.env
 
 install: node_modules bun.lockb
 

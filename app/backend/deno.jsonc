@@ -20,10 +20,10 @@
     "verbatimModuleSyntax": true
   },
   "test": {
-    "exclude": ["assets/", "frontend/"]
+    "exclude": ["assets/"]
   },
   "lint": {
-    "exclude": ["assets/", "frontend/"],
+    "exclude": ["assets/"],
     "rules": { "tags": ["recommended"] }
   },
   "fmt": {
@@ -33,11 +33,11 @@
     "semiColons": true,
     "singleQuote": true,
     "proseWrap": "preserve",
-    "exclude": ["assets/", "frontend/", "README.md"]
+    "exclude": ["assets/"]
   },
   "exclude": ["**/assets/*"],
   "imports": {
-    "$abi/": "../packages/abi/deno/",
+    "$abi/": "../../lib/abi/deno/",
     "https://deno.land/std/": "https://deno.land/std@0.217.0/"
   },
   "tasks": {
