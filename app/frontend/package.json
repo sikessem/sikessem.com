@@ -63,6 +63,7 @@
     "@types/bun": "^1.0.7",
     "@types/node": "^20.11.20",
     "autoprefixer": "^10.4.17",
+    "jose": "^5.2.2",
     "postcss": "^8.4.35",
     "rimraf": "^5.0.5",
     "styliz": "^0.0.2",
