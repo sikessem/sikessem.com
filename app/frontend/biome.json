@@ -20,7 +20,8 @@
         "useBlockStatements": "error",
         "useShorthandArrayType": "error",
         "noShoutyConstants": "warn",
-        "noParameterAssign": "off"
+        "noParameterAssign": "off",
+        "noNonNullAssertion": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"

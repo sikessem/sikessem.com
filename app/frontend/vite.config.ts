@@ -28,5 +28,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         "~/": "/src/",
       },
     },
+    optimizeDeps: { include: ["@auth/core"] },
   };
 });
