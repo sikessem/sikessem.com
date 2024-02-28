@@ -1,5 +1,6 @@
 import type { FileSystemContract } from "./fs";
 import { Method } from "./method";
+import { get_extension_type } from "./mime";
 import reflex from "./reflex";
 
 export type Handler = (request: Request) => Response | Promise<Response>;
