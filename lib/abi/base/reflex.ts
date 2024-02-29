@@ -1,25 +1,18 @@
 import { parse_params } from "./parser";
 
-export function reflect<T>(value: T, objectThis?: object): Reflection {
-  if (typeof value === "function" || value instanceof Function) {
-    return new ReflectionFunction(value, objectThis);
-  }
-
-  if (typeof value === "object" || value instanceof Object) {
-    return new ReflectionObject(value, objectThis);
-  }
-
-  return new ReflectionValue(value);
+export function reflect<T extends Function | object>(
+  value: T,
+  objectThis?: object,
+): ReflectionObject | ReflectionFunction {
+  return typeof value === "object"
+    ? new ReflectionObject(value, objectThis)
+    : new ReflectionFunction(value, objectThis);
 }
 
 export class ReflectionError extends Error {}
 
-export abstract class Reflection<T> {
-  constructor(protected value: T) {}
-
-  get value(): T {
-    return this.value;
-  }
+export abstract class Reflection<T extends unknown> {
+  constructor(readonly value: T) {}
 
   toString(): string {
     return String(this.value);
@@ -28,7 +21,7 @@ export abstract class Reflection<T> {
 
 export class ReflectionObject extends Reflection<object> {
   constructor(
-    value: typeof Function,
+    value: object,
     protected objectThis?: object,
   ) {
     super(value);
@@ -39,14 +32,12 @@ export class ReflectionObject extends Reflection<object> {
   }
 }
 
-export class ReflectionFunction<
-  T extends typeof Function,
-> extends Reflection<T> {
+export class ReflectionFunction extends Reflection<Function> {
   protected is_arrow = false;
   protected name: string;
-  protected parameters: ReflectionParameter[] = [];
+  readonly parameters: ReflectionParameter<any>[] = [];
   constructor(
-    value: T,
+    value: Function,
     protected objectThis?: object,
   ) {
     super(value);
@@ -71,10 +62,8 @@ export class ReflectionFunction<
   }
 
   #parseParameters(str_params: string) {
-    const parameters = parse_params(str_params);
-    this.parameters = [];
-
-    const entries = Object.entries(parameters);
+    const default_params = parse_params(str_params);
+    const entries = Object.entries(default_params);
     if (
       entries.length === 1 &&
       entries[0][0] === "0" &&
@@ -91,11 +80,9 @@ export class ReflectionFunction<
     }
   }
 
-  get paramters(): ReflectionParameter[] {
-    return this.parameters;
-  }
-
-  getParameter(name: string): ReflectionParameter | undefined {
+  getParameter<T extends unknown>(
+    name: string,
+  ): ReflectionParameter<T> | undefined {
     for (const param of this.parameters) {
       if (param.name === name) {
         return param;
@@ -113,27 +100,19 @@ export class ReflectionFunction<
     return false;
   }
 
-  #parseReturn(str_ret: string) {
+  #parseReturn(_str_ret: string) {
     // TODO: throw new ReflectionError("Not implemented!");
   }
 }
 
 export class ReflectionParameter<T> extends Reflection<T> {
   constructor(
-    protected func: ReflectionFunction,
-    protected name: string,
-    protected index: number,
+    readonly func: ReflectionFunction,
+    readonly name: string,
+    readonly index: number,
     value: T,
   ) {
     super(value);
-  }
-
-  get name(): string {
-    return this.name;
-  }
-
-  get index(): number {
-    return this.index;
   }
 
   getFunction(): ReflectionFunction {
@@ -144,26 +123,28 @@ export class ReflectionParameter<T> extends Reflection<T> {
     return this.value !== undefined;
   }
 
-  getDefaultValue(): ReflectionParameterValue {
-    return new ReflectionParameterValue(this, this.value);
+  getDefaultValue(): ReflectionParameterValue<T> {
+    return new ReflectionParameterValue<T>(this, this.value);
   }
 }
 
-export class ReflectionValue extends Reflection {
+export class ReflectionValue<T extends unknown> extends Reflection<T> {
   get type(): string {
     return typeof this.value;
   }
 }
 
-export class ReflectionParameterValue<T> extends ReflectionValue<T> {
+export class ReflectionParameterValue<
+  T extends unknown,
+> extends ReflectionValue<T> {
   constructor(
-    protected param: ReflectionParameter,
+    protected param: ReflectionParameter<T>,
     value: T,
   ) {
     super(value);
   }
 
-  getParameter(): ReflectionParameter {
+  getParameter(): ReflectionParameter<T> {
     return this.param;
   }
 }
@@ -186,33 +167,32 @@ export type Context = Record<string, any>;
 export class Container {
   constructor(protected context: Context) {}
 
-  call<T>(
-    callback: typeof Function,
-    context: Context = {},
-  ): U extends T ? U : T {
+  call<T>(callback: Function, context: Context = {}): T {
     return callback(...this.getArgs(callback, context));
   }
 
-  getArgs(callback: typeof Function, context: Context = {}): any[] {
+  getArgs(callback: Function, context: Context = {}): any[] {
     const reflection = reflect(callback);
-    const args: Array = [];
+    const args: any[] = [];
 
-    for (const param of reflection.parameters) {
+    for (const param of (reflection as ReflectionFunction).parameters) {
       args.push(this.get(param.name, param.value, context));
     }
 
     return args;
   }
 
-  get<T>(id: string, defaultValue: T = undefined, context: Context = {}): T {
+  get<T extends unknown | undefined>(
+    id: string,
+    defaultValue?: T,
+    context: Context = {},
+  ): T {
     context = this.mergeContext(context);
     return this.make(context[id] || defaultValue, context);
   }
 
-  make<T>(value: T, context: Context = {}): U extends T ? U : T {
-    return typeof value === "function" || value instanceof Function
-      ? this.call(value, context)
-      : value;
+  make<T>(value: T, context: Context = {}): T {
+    return typeof value === "function" ? this.call(value, context) : value;
   }
 
   mergeContext(context: Context): Context {

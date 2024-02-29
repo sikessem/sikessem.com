@@ -1,7 +1,7 @@
 {
   "organizeImports": {
     "enabled": true,
-    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
+    "ignore": [".github", ".vscode", "app", "node_modules"]
   },
   "linter": {
     "enabled": true,
@@ -20,15 +20,19 @@
       "suspicious": {
         "noImplicitAnyLet": "off",
         "noExplicitAny": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "off",
+        "noUselessTypeConstraint": "off"
       }
     },
-    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
+    "ignore": [".github", ".vscode", "app", "node_modules"]
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "lineWidth": 80,
-    "ignore": [".github", ".vscode", "backend", "frontend", "node_modules"]
+    "ignore": [".github", ".vscode", "app", "node_modules"]
   }
 }
