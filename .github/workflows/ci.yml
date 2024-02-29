@@ -6,8 +6,8 @@ permissions:
   contents: read
 
 env:
-  OUT_DIR: frontend/out
-  DENO_PACKAGE: packages/abi/deno
+  OUT_DIR: app/frontend/out
+  DENO_PACKAGE: lib/abi/deno
 
 jobs:
   frontend:
@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend
+        working-directory: app/frontend
 
     strategy:
       matrix:
@@ -51,7 +51,7 @@ jobs:
           name: out-dir
           path: ${{ env.OUT_DIR }}
 
-  packages:
+  library:
     runs-on: ${{ matrix.operating-system }}
 
     strategy:
@@ -59,7 +59,7 @@ jobs:
         operating-system: [ubuntu-latest]
         bun-version: [1.0.29]
 
-    name: 👷 CI Sikessem packages under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
+    name: 👷 CI Sikessem library under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
     steps:
       - name: 🚚 Get latest code
@@ -89,12 +89,12 @@ jobs:
           path: ${{ env.DENO_PACKAGE }}
 
   backend:
-    needs: [frontend, packages]
+    needs: [frontend, library]
     runs-on: ${{ matrix.operating-system }}
 
     defaults:
       run:
-        working-directory: backend
+        working-directory: app/backend
 
     strategy:
       matrix:
@@ -121,7 +121,7 @@ jobs:
       - name: 📂 List ../${{ env.OUT_DIR }}
         run: ls -R ../${{ env.OUT_DIR }}
 
-      - name: 🚚 Download deno packages
+      - name: 🚚 Download deno library
         uses: actions/download-artifact@v4
         with:
           name: deno-package
