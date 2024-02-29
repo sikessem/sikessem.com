@@ -5,8 +5,6 @@
     "allowJs": true,
     "lib": ["deno.window", "deno.unstable"],
     "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@builder.io/qwik",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowUnreachableCode": false,
@@ -40,8 +38,7 @@
   "exclude": ["**/assets/*"],
   "imports": {
     "$abi/": "../../lib/abi/deno/",
-    "https://deno.land/std/": "https://deno.land/std@0.217.0/",
-    "@builder.io/qwik": "npm:@builder.io/qwik@1.4.5"
+    "https://deno.land/std/": "https://deno.land/std@0.217.0/"
   },
   "tasks": {
     "apply": "deno lint && deno fmt",
