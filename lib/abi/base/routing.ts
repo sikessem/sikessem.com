@@ -60,7 +60,7 @@ export class Action {
     const re = /\[([a-z]+)(?:\s*:\s*(number|string))?(?:\s*\=\s*(\w+))?\]/;
     pattern = pattern.replace("(", "(?:");
     while (re.test(pattern)) {
-      const m = re.exec(pattern);
+      const m = re.exec(pattern)!;
       const search = m[0];
       const type = m[2] === "number" ? "number" : "string";
       const value = type === "number" ? Number(m[3]) : m[3];
@@ -113,7 +113,10 @@ export class Action {
 
   public resolve(request: Request): Response {
     const options = this.options;
-    const result = reflex({ request, options }).call(this.resolver, options);
+    const result = reflex({ request, options }).call<Result>(
+      this.resolver,
+      options,
+    );
     return this.render(result);
   }
 
@@ -140,10 +143,10 @@ export class Action {
   }
 }
 
-interface ActionRouterContract extends RouterContract {
+export interface ActionRouterContract extends RouterContract {
   add(method: Method, action: Action): this;
 
-  on(method: Method, pattern: Pattern, resolver: Resolver);
+  on(method: Method, pattern: Pattern, resolver: Resolver): this;
 
   onFetch(pattern: Pattern, resolver: Resolver): this;
 

@@ -49,6 +49,7 @@ export class ReflectionFunction extends Reflection<Function> {
     const named_res = named_re.exec(str_val);
     if (arrow_res) {
       this.is_arrow = true;
+      this.name = "";
       this.#parseParameters(arrow_res[1]);
       this.#parseReturn(arrow_res[2]);
     } else if (named_res) {
