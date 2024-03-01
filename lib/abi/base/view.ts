@@ -266,8 +266,17 @@ export class Translate {
 export class Template {
   constructor(protected content: string | TemplateStringsArray) {}
 
-  render(): string {
-    return this.content.toString();
+  render(locale?: Locale): string {
+    const content = this.content.toString();
+    const re = /([a-zA-Z]+[a-zA-Z0-9-_]*)\s*\{\s*(.*?)\s*\}/gms;
+    const m = re.exec(content);
+
+    if (m) {
+      const elt = element(m[1], {}, text(m[2]));
+      return elt.render(locale);
+    }
+
+    return content;
   }
 }
 
