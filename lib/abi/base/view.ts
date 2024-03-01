@@ -1,0 +1,177 @@
+export type Locale = string;
+export type Props = Record<string, any>;
+export type Translations = Record<Locale, string>;
+
+export abstract class Node {
+  abstract render(locale?: Locale): string;
+}
+
+export class Element extends Node {
+  protected nodes: Node[] = [];
+  constructor(
+    readonly name: string,
+    readonly props: Props,
+    ...nodes: Node[]
+  ) {
+    super();
+    this.addNodes(nodes);
+  }
+
+  addNodes(nodes: Node[]): this {
+    for (const node of nodes) {
+      this.addNode(node);
+    }
+    return this;
+  }
+
+  addNode(node: Node): this {
+    this.nodes.push(node);
+    return this;
+  }
+
+  getNodes(): Node[] {
+    return this.nodes;
+  }
+
+  getTexts(): Text[] {
+    const texts: Text[] = [];
+    for (const node of this.nodes) {
+      if (node instanceof Text) {
+        texts.push(node);
+      }
+    }
+    return texts;
+  }
+
+  getElements(): Element[] {
+    const elements: Element[] = [];
+    for (const node of this.nodes) {
+      if (node instanceof Element) {
+        elements.push(node);
+      }
+    }
+    return elements;
+  }
+
+  render(locale?: Locale): string {
+    let str = `<${this.name}`;
+
+    for (const prop of Object.entries(this.props)) {
+      str += ` ${prop[0]}="${prop[1]}"`;
+    }
+
+    if (this.nodes.length > 0) {
+      str += `>${this.slot.render(locale)}</${this.name}>`;
+    } else {
+      str += "/>";
+    }
+
+    return str;
+  }
+
+  get slot(): Slot {
+    return new Slot(this.nodes);
+  }
+}
+
+export class Slot extends Node {
+  constructor(readonly nodes: Node[]) {
+    super();
+  }
+
+  render(locale?: string | undefined): string {
+    let str = "";
+
+    for (const node of this.nodes) {
+      str += node.render(locale);
+    }
+
+    return str;
+  }
+}
+
+export class Text extends Node {
+  static locale: Locale = "en_US";
+  static dictionnary: Record<string, Translations> = {};
+
+  constructor(
+    public value: string,
+    translations: Translations = {},
+  ) {
+    super();
+    Text.setTranslations(value, translations);
+  }
+
+  static setTranslations(value: string, translations: Translations) {
+    for (const translation of Object.entries(translations)) {
+      Text.setTranslation(value, translation[0], translation[1]);
+    }
+  }
+
+  static setTranslation(value: string, locale: Locale, translation: string) {
+    if (Text.dictionnary[value] === undefined) {
+      Text.dictionnary[value] = {};
+    }
+    Text.dictionnary[value][locale] = translation;
+  }
+
+  static getTranslation(value: string, locale: Locale): string | undefined {
+    return Text.getTranslations(value)[locale];
+  }
+
+  static getTranslations(value: string): Translations {
+    const translations = Text.dictionnary[value];
+
+    if (!translations) {
+      for (const [defaultValue, translations] of Object.entries(
+        Text.dictionnary,
+      )) {
+        for (const translation of Object.values(translations)) {
+          if (value === translation) {
+            translations[Text.locale] = defaultValue;
+            return translations;
+          }
+        }
+      }
+    }
+
+    return translations;
+  }
+
+  static translate(value: string): Translate {
+    const translations = Text.getTranslations(value);
+    return Translate.from(translations);
+  }
+
+  translateTo(locale: Locale): string {
+    return Text.getTranslation(this.value, locale) ?? this.value;
+  }
+
+  render(locale?: Locale): string {
+    return locale ? this.translateTo(locale) : this.value;
+  }
+}
+
+export class Translate {
+  constructor(protected translations: Translations) {}
+
+  static from(translations: Translations): Translate {
+    return new Translate(translations);
+  }
+
+  to(locale: Locale): string | undefined {
+    return this.translations[locale];
+  }
+}
+
+export function text(value: string, translations: Translations = {}): Text {
+  return new Text(value, translations);
+}
+
+export function element(name: string, props: Props, ...nodes: Node[]): Element {
+  return new Element(name, props, ...nodes);
+}
+
+export function render(node: Node, locale?: Locale): string {
+  return node.render(locale);
+}
