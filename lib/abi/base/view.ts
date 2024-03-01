@@ -277,13 +277,16 @@ export class Template {
     if (m) {
       const props: Props = {};
       let attrs = m[2] || "";
-      const attrs_re =
-        /\s*([a-zA-Z]+[a-zA-Z0-9-_]*)\s*=\s*(('|")(?:(?:\\\3.*?)|[^\3]*?)\3)\s*/gms;
-      let attrs_m = attrs_re.exec(attrs);
+      const ID = "[a-zA-Z]+[a-zA-Z0-9-_]*";
+      const SINGLE_QUOTE_STR = "'(?:\\'|[^'])*'";
+      const DOUBLE_QUOTE_STR = '"(?:\\"|[^"])*"';
+      const STR = `${SINGLE_QUOTE_STR}|${DOUBLE_QUOTE_STR}`;
+      const ATTR = `\\s*(${ID})\\s*=\\s*(${STR})\\s*`;
+      let attrs_m = RegExp(ATTR, "gm").exec(attrs);
       while (attrs_m) {
         props[attrs_m[1]] = parse_str(attrs_m[2]);
         attrs = attrs.replace(attrs_m[0], "");
-        attrs_m = new RegExp(attrs_re).exec(attrs);
+        attrs_m = RegExp(ATTR, "gm").exec(attrs);
       }
       const elt = element(m[1], props, text(m[3]));
       return elt.render(locale);
