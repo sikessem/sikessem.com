@@ -1,3 +1,5 @@
+import { parse_str } from "./parser";
+
 export type Locale = string;
 export type Props = Record<string, any>;
 export type Translations = Record<Locale, string>;
@@ -268,11 +270,22 @@ export class Template {
 
   render(locale?: Locale): string {
     const content = this.content.toString();
-    const re = /([a-zA-Z]+[a-zA-Z0-9-_]*)\s*\{\s*(.*?)\s*\}/gms;
+    const re =
+      /([a-zA-Z]+[a-zA-Z0-9-_]*)\s*(?:\[([^\[\]]+)\])?\s*\{\s*(.*?)\s*\}/gms;
     const m = re.exec(content);
 
     if (m) {
-      const elt = element(m[1], {}, text(m[2]));
+      const props: Props = {};
+      let attrs = m[2] || "";
+      const attrs_re =
+        /\s*([a-zA-Z]+[a-zA-Z0-9-_]*)\s*=\s*(('|")(?:(?:\\\3.*?)|[^\3]*?)\3)\s*/gms;
+      let attrs_m = attrs_re.exec(attrs);
+      while (attrs_m) {
+        props[attrs_m[1]] = parse_str(attrs_m[2]);
+        attrs = attrs.replace(attrs_m[0], "");
+        attrs_m = new RegExp(attrs_re).exec(attrs);
+      }
+      const elt = element(m[1], props, text(m[3]));
       return elt.render(locale);
     }
 
