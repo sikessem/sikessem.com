@@ -263,6 +263,14 @@ export class Translate {
   }
 }
 
+export class Template {
+  constructor(protected content: string | TemplateStringsArray) {}
+
+  render(): string {
+    return this.content.toString();
+  }
+}
+
 export function text(value: string, translations: Translations = {}): Text {
   return new Text(value, translations);
 }
@@ -275,6 +283,14 @@ export function element(
   return new Element(name, props, ...nodes);
 }
 
+export function template(content: string | TemplateStringsArray): Template {
+  return new Template(content);
+}
+
 export function render(node: Node, locale?: Locale): string {
   return node.render(locale);
+}
+
+export default function (content: string | TemplateStringsArray): Template {
+  return template(content);
 }
