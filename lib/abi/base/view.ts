@@ -270,25 +270,27 @@ export class Template {
 
   render(locale?: Locale): string {
     const content = this.content.toString();
-    const re =
-      /([a-zA-Z]+[a-zA-Z0-9-_]*)\s*(?:\[([^\[\]]+)\])?\s*\{\s*(.*?)\s*\}/gms;
-    const m = re.exec(content);
+    const ID = "[a-zA-Z]+[a-zA-Z0-9-_]*";
+    const SINGLE_QUOTE_STR = "'(?:\\'|[^'])*'";
+    const DOUBLE_QUOTE_STR = '"(?:\\"|[^"])*"';
+    const STR = `${SINGLE_QUOTE_STR}|${DOUBLE_QUOTE_STR}`;
+    const ATTR = `(${ID})\\s*=\\s*(${STR})\\s*`;
+    const ATTRS = `${ATTR}(?:\\s*${ATTR})*`;
+    const ATTRS_BLOCK = `\\[(${ATTRS})\\]`;
+    const ELT = `(${ID})\\s*${ATTRS_BLOCK}`;
+    const ELT_BLOCK = `${ELT}\\s*\\{\\s*(.*?)\\s*\\}`;
+    const elt_m = RegExp(ELT_BLOCK).exec(content);
 
-    if (m) {
+    if (elt_m) {
       const props: Props = {};
-      let attrs = m[2] || "";
-      const ID = "[a-zA-Z]+[a-zA-Z0-9-_]*";
-      const SINGLE_QUOTE_STR = "'(?:\\'|[^'])*'";
-      const DOUBLE_QUOTE_STR = '"(?:\\"|[^"])*"';
-      const STR = `${SINGLE_QUOTE_STR}|${DOUBLE_QUOTE_STR}`;
-      const ATTR = `\\s*(${ID})\\s*=\\s*(${STR})\\s*`;
+      let attrs = elt_m[2] || "";
       let attrs_m = RegExp(ATTR, "gm").exec(attrs);
       while (attrs_m) {
         props[attrs_m[1]] = parse_str(attrs_m[2]);
         attrs = attrs.replace(attrs_m[0], "");
         attrs_m = RegExp(ATTR, "gm").exec(attrs);
       }
-      const elt = element(m[1], props, text(m[3]));
+      const elt = element(elt_m[1], props, text(elt_m[7]));
       return elt.render(locale);
     }
 
