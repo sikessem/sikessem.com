@@ -1,5 +1,14 @@
 import { expect, test } from "bun:test";
-import { Element, Node, Slot, Text, element, text } from "./view";
+import {
+  Element,
+  Node,
+  Slot,
+  Template,
+  Text,
+  element,
+  template,
+  text,
+} from "./view";
 
 test("Test text", () => {
   const txt = text("Hello", {
@@ -53,4 +62,12 @@ test("Test paired element", () => {
   expect(elt.is_empty).toBeTrue();
   expect(elt.is_paired).toBeTrue();
   expect(elt.is_custom).toBeFalse();
+});
+
+test("Test template", () => {
+  const tpl = template`p[id="myP" class="my-4 mx-8" title='It\'s a Hello World'] { Bonjour le monde }`;
+  const r =
+    '<p id="myP" class="my-4 mx-8" title="It\'s a Hello World">Bonjour le monde</p>';
+  expect(tpl).toBeInstanceOf(Template);
+  expect(tpl.render()).toEqual(r);
 });

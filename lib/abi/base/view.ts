@@ -317,7 +317,3 @@ export function template(content: string | TemplateStringsArray): Template {
 export function render(node: Node, locale?: Locale): string {
   return node.render(locale);
 }
-
-export default function (content: string | TemplateStringsArray): Template {
-  return template(content);
-}
