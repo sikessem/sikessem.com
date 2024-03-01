@@ -7,10 +7,75 @@ export abstract class Node {
 }
 
 export class Element extends Node {
+  static readonly ORPHAN = [
+    "area",
+    "base",
+    "basefont",
+    "br",
+    "col",
+    "command",
+    "embed",
+    "frame",
+    "hr",
+    "img",
+    "input",
+    "isindex",
+    "keygen",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+  ];
+
+  static readonly INLINE = [
+    "a",
+    "abbr",
+    "acronym",
+    "b",
+    "bdi",
+    "bdo",
+    "big",
+    "br",
+    "cite",
+    "code",
+    "data",
+    "del",
+    "dfn",
+    "em",
+    "font",
+    "i",
+    "img",
+    "ins",
+    "kbd",
+    "map",
+    "mark",
+    "object",
+    "q",
+    "rp",
+    "rt",
+    "rtc",
+    "ruby",
+    "s",
+    "samp",
+    "small",
+    "span",
+    "strike",
+    "strong",
+    "sub",
+    "sup",
+    "time",
+    "tt",
+    "u",
+    "var",
+  ];
+
   protected nodes: Node[] = [];
+
   constructor(
     readonly name: string,
-    readonly props: Props,
+    readonly props: Props = {},
     ...nodes: Node[]
   ) {
     super();
@@ -54,29 +119,63 @@ export class Element extends Node {
   }
 
   render(locale?: Locale): string {
-    let str = `<${this.name}`;
+    return this.open() + this.slot.render(locale) + this.close();
+  }
+
+  propsToAttrs(): string {
+    let attrs = "";
 
     for (const prop of Object.entries(this.props)) {
-      str += ` ${prop[0]}="${prop[1]}"`;
+      attrs += ` ${prop[0]}="${prop[1]}"`;
     }
 
-    if (this.nodes.length > 0) {
-      str += `>${this.slot.render(locale)}</${this.name}>`;
-    } else {
-      str += "/>";
-    }
+    return attrs;
+  }
 
-    return str;
+  get is_orphan(): boolean {
+    return Element.ORPHAN.includes(this.name);
+  }
+
+  get is_paired(): boolean {
+    return !this.is_orphan;
+  }
+
+  get is_inline(): boolean {
+    return Element.INLINE.includes(this.name);
+  }
+
+  get is_block(): boolean {
+    return !this.is_inline;
+  }
+
+  get is_custom(): boolean {
+    return this.name.includes("-");
+  }
+
+  get is_empty(): boolean {
+    return this.slot.is_empty;
   }
 
   get slot(): Slot {
     return new Slot(this.nodes);
+  }
+
+  open(): string {
+    return `<${this.name}${this.propsToAttrs()}${this.is_orphan ? "/>" : ">"}`;
+  }
+
+  close(): string {
+    return this.is_paired ? `</${this.name}>` : "";
   }
 }
 
 export class Slot extends Node {
   constructor(readonly nodes: Node[]) {
     super();
+  }
+
+  get is_empty(): boolean {
+    return this.nodes.length === 0;
   }
 
   render(locale?: string | undefined): string {
@@ -168,7 +267,11 @@ export function text(value: string, translations: Translations = {}): Text {
   return new Text(value, translations);
 }
 
-export function element(name: string, props: Props, ...nodes: Node[]): Element {
+export function element(
+  name: string,
+  props: Props = {},
+  ...nodes: Node[]
+): Element {
   return new Element(name, props, ...nodes);
 }
 

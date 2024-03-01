@@ -29,6 +29,28 @@ test("Test element", () => {
   expect(elt).toBeInstanceOf(Node);
   expect(elt.slot).toBeInstanceOf(Slot);
   expect(elt.slot).toBeInstanceOf(Node);
+  expect(elt.is_empty).toBeFalse();
   expect(elt.slot.render()).toEqual("Hello<b>World</b>");
   expect(elt.render()).toEqual('<div id="MyDiv">Hello<b>World</b></div>');
+});
+
+test("Test inline element", () => {
+  const elt = element("br");
+  const c_elt = element("br", {}, text("content"));
+
+  expect(elt.is_inline).toBeTrue();
+  expect(c_elt.is_inline).toBeTrue();
+  expect(elt.is_empty).toBeTrue();
+  expect(c_elt.is_empty).toBeFalse();
+  expect(elt.is_paired).toBeFalse();
+  expect(c_elt.is_paired).toBeFalse();
+  expect(elt.is_custom).toBeFalse();
+});
+
+test("Test paired element", () => {
+  const elt = element("p");
+  expect(elt.is_inline).toBeFalse();
+  expect(elt.is_empty).toBeTrue();
+  expect(elt.is_paired).toBeTrue();
+  expect(elt.is_custom).toBeFalse();
 });
