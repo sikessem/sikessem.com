@@ -1,10 +1,13 @@
 import { expect, test } from "bun:test";
 import {
+  Component,
   Element,
   Node,
   Slot,
+  Tag,
   Template,
   Text,
+  component,
   element,
   template,
   text,
@@ -25,6 +28,30 @@ test("Test text", () => {
   expect(Text.translate("Salut").to("fr_CI")).toEqual("Salut");
 });
 
+test("Test component", () => {
+  const cmp = component(
+    "MyHello",
+    {
+      name: "Sigui",
+      age: 27,
+    },
+    element("p", {}, text("Hello"), element("b", {}, text("Sigui"))),
+    element("p", {}, text("Age"), element("b", {}, text("25"))),
+  );
+  expect(cmp).toBeInstanceOf(Component);
+  expect(cmp).toBeInstanceOf(Node);
+  expect(cmp).toBeInstanceOf(Tag);
+  expect(cmp.slot).toBeInstanceOf(Slot);
+  expect(cmp.slot).toBeInstanceOf(Node);
+  expect(cmp.is_empty).toBeFalse();
+  expect(cmp.slot.render()).toEqual(
+    "<p>Hello<b>Sigui</b></p><p>Age<b>25</b></p>",
+  );
+  expect(cmp.render()).toEqual(
+    '<MyHello name="Sigui" age="27"><p>Hello<b>Sigui</b></p><p>Age<b>25</b></p></MyHello>',
+  );
+});
+
 test("Test element", () => {
   const elt = element(
     "div",
@@ -36,6 +63,7 @@ test("Test element", () => {
   );
   expect(elt).toBeInstanceOf(Element);
   expect(elt).toBeInstanceOf(Node);
+  expect(elt).toBeInstanceOf(Tag);
   expect(elt.slot).toBeInstanceOf(Slot);
   expect(elt.slot).toBeInstanceOf(Node);
   expect(elt.is_empty).toBeFalse();

@@ -1,6 +1,7 @@
 import { parse_str } from "./parser";
 
 export type Locale = string;
+export type Attrs = Record<string, string>;
 export type Props = Record<string, any>;
 export type Translations = Record<Locale, string>;
 
@@ -8,7 +9,103 @@ export abstract class Node {
   abstract render(locale?: Locale): string;
 }
 
-export class Element extends Node {
+export abstract class Tag extends Node {
+  protected nodes: Node[] = [];
+
+  constructor(
+    readonly name: string,
+    ...nodes: Node[]
+  ) {
+    super();
+    this.addNodes(nodes);
+  }
+
+  addNodes(nodes: Node[]): this {
+    for (const node of nodes) {
+      this.addNode(node);
+    }
+    return this;
+  }
+
+  addNode(node: Node): this {
+    this.nodes.push(node);
+    return this;
+  }
+
+  getNodes(): Node[] {
+    return this.nodes;
+  }
+
+  getTexts(): Text[] {
+    const texts: Text[] = [];
+    for (const node of this.nodes) {
+      if (node instanceof Text) {
+        texts.push(node);
+      }
+    }
+    return texts;
+  }
+
+  getElements(): Element[] {
+    const elements: Element[] = [];
+    for (const node of this.nodes) {
+      if (node instanceof Element) {
+        elements.push(node);
+      }
+    }
+    return elements;
+  }
+
+  abstract open(): string;
+
+  abstract close(): string;
+
+  get slot(): Slot {
+    return new Slot(this.nodes);
+  }
+
+  get is_empty(): boolean {
+    return this.slot.is_empty;
+  }
+
+  render(locale?: Locale): string {
+    return this.open() + this.renderSlot(locale) + this.close();
+  }
+
+  renderSlot(locale?: Locale): string {
+    return this.slot.render(locale);
+  }
+}
+
+export class Component extends Tag {
+  constructor(
+    name: string,
+    readonly props: Props,
+    ...nodes: Node[]
+  ) {
+    super(name, ...nodes);
+  }
+
+  open(): string {
+    return `<${this.name}${this.renderProps()}${this.slot.is_empty ? "" : ">"}`;
+  }
+
+  close(): string {
+    return this.slot.is_empty ? "/>" : `</${this.name}>`;
+  }
+
+  renderProps(): string {
+    let props = "";
+
+    for (const prop of Object.entries(this.props)) {
+      props += ` ${prop[0]}="${prop[1].toString()}"`;
+    }
+
+    return props;
+  }
+}
+
+export class Element extends Tag {
   static readonly ORPHAN = [
     "area",
     "base",
@@ -73,65 +170,30 @@ export class Element extends Node {
     "var",
   ];
 
-  protected nodes: Node[] = [];
-
   constructor(
-    readonly name: string,
-    readonly props: Props = {},
+    name: string,
+    readonly attrs: Attrs = {},
     ...nodes: Node[]
   ) {
-    super();
-    this.addNodes(nodes);
+    super(name, ...nodes);
   }
 
-  addNodes(nodes: Node[]): this {
-    for (const node of nodes) {
-      this.addNode(node);
-    }
-    return this;
-  }
-
-  addNode(node: Node): this {
-    this.nodes.push(node);
-    return this;
-  }
-
-  getNodes(): Node[] {
-    return this.nodes;
-  }
-
-  getTexts(): Text[] {
-    const texts: Text[] = [];
-    for (const node of this.nodes) {
-      if (node instanceof Text) {
-        texts.push(node);
-      }
-    }
-    return texts;
-  }
-
-  getElements(): Element[] {
-    const elements: Element[] = [];
-    for (const node of this.nodes) {
-      if (node instanceof Element) {
-        elements.push(node);
-      }
-    }
-    return elements;
-  }
-
-  render(locale?: Locale): string {
-    return this.open() + this.slot.render(locale) + this.close();
-  }
-
-  propsToAttrs(): string {
+  renderAttrs(): string {
     let attrs = "";
 
-    for (const prop of Object.entries(this.props)) {
-      attrs += ` ${prop[0]}="${prop[1]}"`;
+    for (const attr of Object.entries(this.attrs)) {
+      attrs += ` ${attr[0]}="${attr[1]}"`;
     }
 
     return attrs;
+  }
+
+  open(): string {
+    return `<${this.name}${this.renderAttrs()}>`;
+  }
+
+  close(): string {
+    return this.is_orphan ? "" : `</${this.name}>`;
   }
 
   get is_orphan(): boolean {
@@ -152,22 +214,6 @@ export class Element extends Node {
 
   get is_custom(): boolean {
     return this.name.includes("-");
-  }
-
-  get is_empty(): boolean {
-    return this.slot.is_empty;
-  }
-
-  get slot(): Slot {
-    return new Slot(this.nodes);
-  }
-
-  open(): string {
-    return `<${this.name}${this.propsToAttrs()}${this.is_orphan ? "/>" : ">"}`;
-  }
-
-  close(): string {
-    return this.is_paired ? `</${this.name}>` : "";
   }
 }
 
@@ -282,15 +328,15 @@ export class Template {
     const elt_m = RegExp(ELT_BLOCK).exec(content);
 
     if (elt_m) {
-      const props: Props = {};
-      let attrs = elt_m[2] || "";
-      let attrs_m = RegExp(ATTR, "gm").exec(attrs);
+      const attrs: Attrs = {};
+      let attrs_str = elt_m[2] || "";
+      let attrs_m = RegExp(ATTR, "gm").exec(attrs_str);
       while (attrs_m) {
-        props[attrs_m[1]] = parse_str(attrs_m[2]);
-        attrs = attrs.replace(attrs_m[0], "");
-        attrs_m = RegExp(ATTR, "gm").exec(attrs);
+        attrs[attrs_m[1]] = parse_str(attrs_m[2]);
+        attrs_str = attrs_str.replace(attrs_m[0], "");
+        attrs_m = RegExp(ATTR, "gm").exec(attrs_str);
       }
-      const elt = element(elt_m[1], props, text(elt_m[7]));
+      const elt = element(elt_m[1], attrs, text(elt_m[7]));
       return elt.render(locale);
     }
 
@@ -302,12 +348,20 @@ export function text(value: string, translations: Translations = {}): Text {
   return new Text(value, translations);
 }
 
-export function element(
+export function component(
   name: string,
   props: Props = {},
   ...nodes: Node[]
+): Component {
+  return new Component(name, props, ...nodes);
+}
+
+export function element(
+  name: string,
+  attrs: Attrs = {},
+  ...nodes: Node[]
 ): Element {
-  return new Element(name, props, ...nodes);
+  return new Element(name, attrs, ...nodes);
 }
 
 export function template(content: string | TemplateStringsArray): Template {
