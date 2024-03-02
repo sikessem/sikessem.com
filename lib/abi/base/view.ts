@@ -3,6 +3,7 @@ import { parse_str } from "./parser";
 export type Locale = string;
 export type Attrs = Record<string, string>;
 export type Props = Record<string, any>;
+export type EltName = keyof HTMLElementTagNameMap;
 export type Translations = Record<Locale, string>;
 
 export abstract class Node {
@@ -171,7 +172,7 @@ export class Element extends Tag {
   ];
 
   constructor(
-    name: string,
+    name: EltName,
     readonly attrs: Attrs = {},
     ...nodes: Node[]
   ) {
@@ -336,7 +337,7 @@ export class Template {
         attrs_str = attrs_str.replace(attrs_m[0], "");
         attrs_m = RegExp(ATTR, "gm").exec(attrs_str);
       }
-      const elt = element(elt_m[1], attrs, text(elt_m[7]));
+      const elt = element(elt_m[1] as EltName, attrs, text(elt_m[7]));
       return elt.render(locale);
     }
 
@@ -357,7 +358,7 @@ export function component(
 }
 
 export function element(
-  name: string,
+  name: EltName,
   attrs: Attrs = {},
   ...nodes: Node[]
 ): Element {
