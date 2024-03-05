@@ -1,30 +1,30 @@
-import { DateTime } from 'luxon'
-import { withAuthFinder } from '@adonisjs/auth'
-import hash from '@adonisjs/core/services/hash'
-import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { withAuthFinder } from "@adonisjs/auth";
+import { compose } from "@adonisjs/core/helpers";
+import hash from "@adonisjs/core/services/hash";
+import { BaseModel, column } from "@adonisjs/lucid/orm";
+import { DateTime } from "luxon";
 
-const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
-  uids: ['email'],
-  passwordColumnName: 'password',
-})
+const AuthFinder = withAuthFinder(() => hash.use("scrypt"), {
+  uids: ["email"],
+  passwordColumnName: "password",
+});
 
 export default class User extends compose(BaseModel, AuthFinder) {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: number;
 
   @column()
-  declare fullName: string | null
+  declare fullName: string | null;
 
   @column()
-  declare email: string
+  declare email: string;
 
   @column()
-  declare password: string
+  declare password: string;
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
+  declare updatedAt: DateTime | null;
 }

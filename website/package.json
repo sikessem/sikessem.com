@@ -5,12 +5,18 @@
   "type": "module",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "start": "bun bin/server.ts",
+    "apply": "bun run format.apply && bun run lint.apply",
     "build": "./ace build",
+    "ci": "biome ci .",
+    "check": "bun typecheck && bun run ci",
     "dev": "./ace serve --watch",
+    "format": "biome format .",
+    "format.apply": "biome format --write .",
+    "inspect": "bun --inspect-brk ./node_modules/vite/bin/vite.js --force",
+    "lint": "biome check .",
+    "lint.apply": "biome check --apply-unsafe .",
+    "start": "bun bin/server.ts",
     "test": "./ace test",
-    "lint": "eslint .",
-    "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
   "imports": {
@@ -33,21 +39,19 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.1.1",
-    "@adonisjs/eslint-config": "^1.2.1",
-    "@adonisjs/prettier-config": "^1.2.1",
     "@adonisjs/tsconfig": "^1.2.1",
+    "@biomejs/biome": "^1.5.3",
     "@japa/assert": "^2.1.0",
     "@japa/plugin-adonisjs": "^3.0.0",
     "@japa/runner": "^3.1.1",
     "@swc/core": "^1.3.107",
+    "@types/bun": "^1.0.8",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^20.11.10",
-    "eslint": "^8.56.0",
+    "@types/node": "^20.11.24",
     "pino-pretty": "^10.3.1",
-    "prettier": "^3.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.1.5"
   },
   "dependencies": {
     "@adonisjs/auth": "^9.1.1",
