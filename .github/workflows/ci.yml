@@ -36,6 +36,10 @@ jobs:
       - name: ⚡️ Install dependencies
         run: bun install
 
+      - name: 🔐 Generate AUTH_SECRET
+        id: generate-secret
+        run: echo "AUTH_SECRET=$(openssl rand -hex 32)" >> .env
+
       - name: ✅ Check types
         run: ./run check
 
@@ -117,7 +121,7 @@ jobs:
         with:
           name: out-dir
           path: ${{ env.OUT_DIR }}
-
+  
       - name: 📂 List ../../${{ env.OUT_DIR }}
         run: ls -R ../../${{ env.OUT_DIR }}
 
