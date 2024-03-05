@@ -36,9 +36,13 @@ jobs:
       - name: ⚡️ Install dependencies
         run: bun install
 
-      - name: 🔐 Generate AUTH_SECRET
-        id: generate-secret
-        run: echo "AUTH_SECRET=$(openssl rand -hex 32)" >> .env
+      - name: 🔐 Setup .env
+        id: generate-dotenv
+        run: |
+          cp .env.example .env
+          set -e
+          sed -i "s|^\(APP_SECRET=\s*\).*$|\1$(openssl rand -hex 32)|" .env
+          cat .env
 
       - name: ✅ Check types
         run: ./run check

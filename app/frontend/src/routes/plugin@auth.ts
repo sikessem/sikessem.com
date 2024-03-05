@@ -4,7 +4,7 @@ import { serverAuth$ } from "@builder.io/qwik-auth";
 
 export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
   serverAuth$(({ env }) => ({
-    secret: env.get("AUTH_SECRET")!,
+    secret: env.get("APP_SECRET")!,
     trustHost: true,
     providers: [
       GitHub({
