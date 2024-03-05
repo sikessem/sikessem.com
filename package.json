@@ -1,6 +1,7 @@
 {
   "name": "sikessem.com",
   "private": true,
+  "license":"AGPL-3.0-only",
   "engines": {
     "bun": ">=1.0.29",
     "node": "prefer using bun",
