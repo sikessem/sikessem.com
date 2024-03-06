@@ -1,0 +1,27 @@
+{
+  "name": "abi.js",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "bun": ">=1.0.29",
+    "node": "prefer using bun",
+    "npm": "prefer using bun",
+    "pnpm": "prefer using bun",
+    "yarn": "prefer using bun"
+  },
+  "packageManager": "bun@1.0.29",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://sikessem.com",
+  "author": {
+    "name": "Sigui Kessé Emmanuel",
+    "email": "dev@sikessem.com",
+    "url": "https://sigui.deno.dev"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.7",
+    "@types/node": "^20.11.20",
+    "typescript": "^5.3.3"
+  }
+}

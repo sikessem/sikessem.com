@@ -1,12 +1,12 @@
 {
-    "include": ["packages/**/*", "app/backend/**/*"],
+    "include": ["**/*"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "allowJs": true,
-        "target": "ES2017",
-        "module": "ES2022",
-        "lib": ["ES2022", "DOM", "WebWorker", "DOM.Iterable"],
-        "moduleResolution": "Node",
+        "target": "ESNext",
+        "module": "ESNext",
+        "lib": ["ESNext", "DOM", "WebWorker", "DOM.Iterable"],
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "outDir": "tmp",
         "noEmit": true,
@@ -41,7 +41,12 @@
         "inlineSources": true,
         "types": ["bun", "node"],
         "baseUrl": ".",
-        "paths": {},
-    },
-    "files": ["./biome.json"]
+        "paths": {
+            "$abi/*": [
+                "../../packages/abi/*",
+            ],
+            "@/*": ["./assets/*"],
+            "~/*": ["./routes/*"],
+        },
+    }
 }

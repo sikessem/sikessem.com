@@ -1,5 +1,5 @@
 {
-  "name": "@sikessem.com/frontend",
+  "name": "@sikessem/frontend",
   "private": true,
   "type": "module",
   "engines": {
@@ -24,7 +24,7 @@
     "build": "rimraf out && qwik build && mkdir out && mv dist out && mv server out",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "vite build -c adapters/deno/vite.config.ts",
+    "build.server": "vite build -c adapters/bun/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "check": "bun run type && bun run ci",
     "ci": "biome ci .",

@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "denoland.vscode-deno",
     "oven.bun-vscode",
     "biomejs.biome",
     "unifiedjs.vscode-mdx",

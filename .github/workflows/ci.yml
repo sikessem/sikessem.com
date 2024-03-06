@@ -7,7 +7,6 @@ permissions:
 
 env:
   OUT_DIR: app/frontend/out
-  DENO_PACKAGE: lib/abi/deno
 
 jobs:
   frontend:
@@ -45,10 +44,10 @@ jobs:
           cat .env
 
       - name: ✅ Check types
-        run: ./run check
+        run: bun check
 
       - name: 🍱 Build assets
-        run: ./run build
+        run: bun run build
 
       - name: 📂 List ../../${{ env.OUT_DIR }}
         run: ls -R ../../${{ env.OUT_DIR }}
@@ -84,18 +83,6 @@ jobs:
       - name: ✅ Check types
         run: bun ci
 
-      - name: 🍱 Build assets
-        run: bun denoify
-
-      - name: 📂 List ${{ env.DENO_PACKAGE }}
-        run: ls -R ${{ env.DENO_PACKAGE }}
-
-      - name: 🚚 Upload distribution files
-        uses: actions/upload-artifact@v4
-        with:
-          name: deno-package
-          path: ${{ env.DENO_PACKAGE }}
-
   backend:
     needs: [frontend, library]
     runs-on: ${{ matrix.operating-system }}
@@ -107,39 +94,30 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        deno-version: [1.41.0]
+        bun-version: [1.0.29]
 
-    name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Deno@${{ matrix.deno-version }}
+    name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 🔨 Configure Deno
-        uses: denoland/setup-deno@v1
+      - name: 🔧 Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          deno-version: ${{ matrix.deno-version }}
+          bun-version: ${{ matrix.bun-version }}
+
+      - name: ⚡️ Install dependencies
+        run: bun install
 
       - name: 🚚 Download distribution files
         uses: actions/download-artifact@v4
         with:
           name: out-dir
           path: ${{ env.OUT_DIR }}
-  
+
       - name: 📂 List ../../${{ env.OUT_DIR }}
         run: ls -R ../../${{ env.OUT_DIR }}
 
-      - name: 🚚 Download deno library
-        uses: actions/download-artifact@v4
-        with:
-          name: deno-package
-          path: ${{ env.DENO_PACKAGE }}
-
-      - name: 📂 List ../../${{ env.DENO_PACKAGE }}
-        run: ls -R ../../${{ env.DENO_PACKAGE }}
-
-      - name: ✅ Check files
-        run: ./task check
-      
       - name: 🧪 Test server
-        run: ./task serve > /dev/null 2>&1 &
+        run: bun serve > /dev/null 2>&1 &

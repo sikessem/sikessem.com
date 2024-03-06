@@ -21,28 +21,36 @@ const { router, notFound, staticFile } = createQwikCity({
 });
 
 // Allow for dynamic port
+const hostname = Bun.env.HOSTNAME ?? "0.0.0.0";
 const port = Number(Bun.env.PORT ?? 3000);
+const fetch = async (request: Request): Promise<Response> => {
+  const staticResponse = await staticFile(request);
+  if (staticResponse) {
+    return staticResponse;
+  }
 
-/* eslint-disable */
-console.log(`Server started: http://localhost:${port}/`);
+  // Server-side render this request with Qwik City
+  const qwikCityResponse = await router(request);
+  if (qwikCityResponse) {
+    return qwikCityResponse;
+  }
 
-Bun.serve({
-  async fetch(request: Request) {
-    const staticResponse = await staticFile(request);
-    if (staticResponse) {
-      return staticResponse;
-    }
+  // Path not found
+  return notFound(request);
+};
 
-    // Server-side render this request with Qwik City
-    const qwikCityResponse = await router(request);
-    if (qwikCityResponse) {
-      return qwikCityResponse;
-    }
+if (import.meta.main) {
+  const server = Bun.serve({
+    hostname,
+    port,
+    fetch,
+  });
 
-    // Path not found
-    return notFound(request);
-  },
-  port,
-});
+  console.log(
+    `Server starter: http://${
+      server.hostname === "0.0.0.0" ? "localhost" : server.hostname
+    }:${server.port}/`,
+  );
+}
 
-declare const Bun: any;
+export default fetch;
