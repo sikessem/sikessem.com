@@ -20,12 +20,13 @@
     "url": "https://sigui.deno.dev"
   },
   "workspaces": [
-    "lib/*",
     "app/*",
-    "website"
+    "lib/*"
   ],
   "scripts": {
     "apply": "bun fix && bun backend:apply",
+    "backend:check": "cd app/backend && bun check",
+    "backend:apply": "cd app/backend && bun apply",
     "backend:serve": "cd app/backend && bun serve",
     "backend:start": "cd app/backend && bun start",
     "check": "knip && biome ci && bun frontend:check && bun backend:check",

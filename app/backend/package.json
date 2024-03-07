@@ -20,10 +20,19 @@
     "url": "https://sigui.deno.dev"
   },
   "scripts": {
+    "apply": "bun run format.apply && bun run lint.apply",
+    "check": "bun types && bun ci",
+    "ci": "biome ci .",
+    "format": "biome format .",
+    "format.apply": "biome format --write .",
+    "lint": "biome check .",
+    "lint.apply": "biome check --apply-unsafe .",
     "serve": "bun run start.tsx",
-    "start": "bun run --hot start.tsx"
+    "start": "bun run --hot start.tsx",
+    "types": "tsc --incremental --noEmit"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
     "@types/bun": "^1.0.7",
     "@types/node": "^20.11.20",
     "abi.js": "workspace:*",
