@@ -19,10 +19,7 @@
     "email": "dev@sikessem.com",
     "url": "https://sigui.deno.dev"
   },
-  "workspaces": [
-    "app/*",
-    "lib/*"
-  ],
+  "workspaces": ["app/*", "lib/*"],
   "scripts": {
     "apply": "bun fix && bun backend:apply",
     "backend:check": "cd app/backend && bun check",
@@ -61,9 +58,7 @@
     "test.watch": "bun test --watch",
     "type": "tsc --incremental --noEmit"
   },
-  "trustedDependencies": [
-    "sharp"
-  ],
+  "trustedDependencies": ["sharp"],
   "devDependencies": {
     "@biomejs/biome": "^1.6.0",
     "@playwright/test": "^1.42.1",

@@ -22,18 +22,8 @@
     "email": "dev@sikessem.com",
     "url": "https://sigui.deno.dev"
   },
-  "files": [
-    "base",
-    "bun",
-    "deno"
-  ],
-  "keywords": [
-    "router",
-    "server",
-    "handler",
-    "resolver",
-    "middleware"
-  ],
+  "files": ["base", "bun", "deno"],
+  "keywords": ["router", "server", "handler", "resolver", "middleware"],
   "scripts": {
     "test": "bun test"
   },
