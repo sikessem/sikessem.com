@@ -1,15 +1,15 @@
 {
   "name": "sikessem.com",
   "private": true,
-  "license":"AGPL-3.0-only",
+  "license": "AGPL-3.0-only",
   "engines": {
-    "bun": ">=1.0.29",
+    "bun": ">=1.0.30",
     "node": "prefer using bun",
     "npm": "prefer using bun",
     "pnpm": "prefer using bun",
     "yarn": "prefer using bun"
   },
-  "packageManager": "bun@1.0.29",
+  "packageManager": "bun@1.0.30",
   "publishConfig": {
     "access": "public"
   },
@@ -65,12 +65,12 @@
     "sharp"
   ],
   "devDependencies": {
-    "@biomejs/biome": "^1.5.3",
-    "@playwright/test": "^1.41.2",
-    "@types/bun": "^1.0.7",
-    "@types/node": "^20.11.20",
+    "@biomejs/biome": "^1.6.0",
+    "@playwright/test": "^1.42.1",
+    "@types/bun": "^1.0.8",
+    "@types/node": "^20.11.25",
     "denoify": "^1.6.9",
-    "knip": "^5.0.2",
+    "knip": "^5.0.3",
     "rimraf": "^5.0.5"
   }
 }

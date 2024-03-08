@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        bun-version: [1.0.29]
+        bun-version: [1.0.30]
 
     name: 👷 CI Sikessem frontend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        bun-version: [1.0.29]
+        bun-version: [1.0.30]
 
     name: 👷 CI Sikessem library under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
@@ -94,7 +94,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        bun-version: [1.0.29]
+        bun-version: [1.0.30]
 
     name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 

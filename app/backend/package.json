@@ -32,10 +32,10 @@
     "types": "tsc --incremental --noEmit"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.5.3",
-    "@types/bun": "^1.0.7",
-    "@types/node": "^20.11.20",
+    "@biomejs/biome": "^1.6.0",
+    "@types/bun": "^1.0.8",
+    "@types/node": "^20.11.25",
     "abi.js": "workspace:*",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }
