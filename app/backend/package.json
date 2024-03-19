@@ -3,20 +3,20 @@
   "private": true,
   "type": "module",
   "engines": {
-    "bun": ">=1.0.30",
+    "bun": ">=1.0.33",
     "node": "prefer using bun",
     "npm": "prefer using bun",
     "pnpm": "prefer using bun",
     "yarn": "prefer using bun"
   },
-  "packageManager": "bun@1.0.30",
+  "packageManager": "bun@1.0.33",
   "publishConfig": {
     "access": "public"
   },
   "homepage": "https://sikessem.com",
   "author": {
     "name": "Sigui Kessé Emmanuel",
-    "email": "dev@sikessem.com",
+    "email": "siguici@proton.me",
     "url": "https://sigui.deno.dev"
   },
   "scripts": {
@@ -32,9 +32,9 @@
     "types": "tsc --incremental --noEmit"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.6.0",
+    "@biomejs/biome": "^1.6.1",
     "@types/bun": "^1.0.8",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.29",
     "abi.js": "workspace:*",
     "typescript": "^5.4.2"
   }
