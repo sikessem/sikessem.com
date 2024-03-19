@@ -2,8 +2,6 @@
   "recommendations": [
     "oven.bun-vscode",
     "biomejs.biome",
-    "unifiedjs.vscode-mdx",
-    "bradlc.vscode-tailwindcss",
   ],
   "unwantedRecommendations": []
 }
