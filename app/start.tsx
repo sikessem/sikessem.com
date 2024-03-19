@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { ActionRouter, FileRouter } from "abi.js//bun/routing";
 import type { Handler } from "abi.js/base/routing";
 import { FileSystem } from "abi.js/bun/fs";
+import { ActionRouter, FileRouter } from "abi.js/bun/routing";
 
 const port = 3000;
 
@@ -10,16 +10,6 @@ const server = Bun.serve({
   port,
   async fetch(request: Request): Promise<Response> {
     const handlers: Handler[] = [];
-
-    const frontend_server_path = join(
-      process.cwd(),
-      "../frontend/out/server/entry.bun.js",
-    );
-    if (existsSync(frontend_server_path)) {
-      const frontend_server_module = await import(frontend_server_path);
-      const frontend_server = frontend_server_module.default as Handler;
-      handlers.push(frontend_server);
-    }
 
     const assets_path = join(process.cwd(), "assets");
     if (existsSync(assets_path)) {
@@ -30,7 +20,7 @@ const server = Bun.serve({
     }
 
     const actions_router = new ActionRouter();
-    actions_router.onGet("/home", () => "Welcome to my homepage");
+    actions_router.onGet("/", () => "Welcome to my homepage");
     actions_router.onGet(
       "/users/[user:number=0]/profile",
       (request: Request, user = 5) => `${request.method} User ${user}`,

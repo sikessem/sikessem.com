@@ -5,23 +5,16 @@ on: [push, pull_request]
 permissions:
   contents: read
 
-env:
-  OUT_DIR: app/frontend/out
-
 jobs:
-  frontend:
+  ci:
     runs-on: ${{ matrix.operating-system }}
-
-    defaults:
-      run:
-        working-directory: app/frontend
 
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
         bun-version: [1.0.33]
 
-    name: 👷 CI Sikessem frontend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
+    name: 👷 CI Sikessem under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
 
     steps:
       - name: 🚚 Get latest code
@@ -44,80 +37,4 @@ jobs:
           cat .env
 
       - name: ✅ Check types
-        run: bun check
-
-      - name: 🍱 Build assets
-        run: bun run build
-
-      - name: 📂 List ../../${{ env.OUT_DIR }}
-        run: ls -R ../../${{ env.OUT_DIR }}
-
-      - name: 🚚 Upload distribution files
-        uses: actions/upload-artifact@v4
-        with:
-          name: out-dir
-          path: ${{ env.OUT_DIR }}
-
-  library:
-    runs-on: ${{ matrix.operating-system }}
-
-    strategy:
-      matrix:
-        operating-system: [ubuntu-latest]
-        bun-version: [1.0.33]
-
-    name: 👷 CI Sikessem library under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
-
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
-
-      - name: 🔧 Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ matrix.bun-version }}
-
-      - name: ⚡️ Install dependencies
-        run: bun install
-
-      - name: ✅ Check types
         run: bun ci
-
-  backend:
-    needs: [frontend, library]
-    runs-on: ${{ matrix.operating-system }}
-
-    defaults:
-      run:
-        working-directory: app/backend
-
-    strategy:
-      matrix:
-        operating-system: [ubuntu-latest]
-        bun-version: [1.0.30]
-
-    name: 👷 CI Sikessem backend under ${{ matrix.operating-system }} using Bun@${{ matrix.bun-version }}
-
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
-
-      - name: 🔧 Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ matrix.bun-version }}
-
-      - name: ⚡️ Install dependencies
-        run: bun install
-
-      - name: 🚚 Download distribution files
-        uses: actions/download-artifact@v4
-        with:
-          name: out-dir
-          path: ${{ env.OUT_DIR }}
-
-      - name: 📂 List ../../${{ env.OUT_DIR }}
-        run: ls -R ../../${{ env.OUT_DIR }}
-
-      - name: 🧪 Test server
-        run: bun serve > /dev/null 2>&1 &

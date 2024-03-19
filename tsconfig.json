@@ -1,5 +1,5 @@
 {
-  "include": ["packages/**/*", "app/backend/**/*"],
+  "include": ["lib/**/*", "app/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "allowJs": true,
