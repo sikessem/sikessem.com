@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { Handler } from "abi.js/base/routing";
-import { FileSystem } from "abi.js/bun/fs";
-import { ActionRouter, FileRouter } from "abi.js/bun/routing";
+import { FileSystem } from "abi.js/core/fs";
+import { ActionRouter, FileRouter } from "abi.js/core/routing";
 
 const port = 3000;
 

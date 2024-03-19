@@ -24,7 +24,6 @@
     "check": "knip && biome ci",
     "ci": "biome ci .",
     "debug": "bun run check && bun run test",
-    "denoify": "rimraf lib/abi/deno/base && denoify --src lib/abi/base --out lib/abi/deno/base && rimraf lib/abi/deno/base/*.test.ts",
     "e2e.install": "playwright install --with-deps",
     "e2e.report": "playwright show-report",
     "e2e.ui": "playwright test --ui",
