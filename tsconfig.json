@@ -41,7 +41,9 @@
     "inlineSources": true,
     "types": ["bun", "node"],
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "abi.js/*": ["lib/abi/src/*"]
+    }
   },
   "files": ["./biome.json"]
 }

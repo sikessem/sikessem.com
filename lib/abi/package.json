@@ -4,26 +4,24 @@
   "private": false,
   "type": "module",
   "engines": {
-    "bun": ">=1.0.30"
+    "bun": ">=1.0.33"
   },
-  "packageManager": "bun@1.0.30",
+  "packageManager": "bun@1.0.33",
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://sikessem.com",
+  "homepage": "https://npmjs.com/package/abi.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sikessem/sikessem.com",
-    "directory": "lib/abi"
+    "url": "https://github.com/siguici/abi.js"
   },
-  "bugs": "https://github.com/sikessem/sikessem.com/issues",
+  "bugs": "https://github.com/siguici/abi.js/issues",
   "author": {
     "name": "Sigui Kessé Emmanuel",
-    "email": "dev@sikessem.com",
+    "email": "siguici@proton.me",
     "url": "https://sigui.deno.dev"
   },
-  "files": ["base", "bun", "deno"],
-  "keywords": ["router", "server", "handler", "resolver", "middleware"],
+  "files": ["src"],
   "scripts": {
     "test": "bun test"
   },
