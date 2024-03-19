@@ -50,8 +50,6 @@
     "@playwright/test": "^1.42.1",
     "@types/bun": "^1.0.8",
     "@types/node": "^20.11.29",
-    "denoify": "^1.6.9",
-    "knip": "^5.1.2",
-    "rimraf": "^5.0.5"
+    "knip": "^5.1.2"
   }
 }
