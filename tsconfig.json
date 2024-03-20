@@ -42,7 +42,7 @@
     "types": ["bun", "node"],
     "baseUrl": ".",
     "paths": {
-      "abi.js/*": ["lib/abi/src/*"]
+      "sikessem/*": ["lib/sikessem/src/*"]
     }
   },
   "files": ["./biome.json"]
