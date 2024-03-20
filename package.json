@@ -50,6 +50,7 @@
     "@playwright/test": "^1.42.1",
     "@types/bun": "^1.0.8",
     "@types/node": "^20.11.29",
-    "knip": "^5.1.2"
+    "knip": "^5.1.2",
+    "textlint": "^14.0.4"
   }
 }
