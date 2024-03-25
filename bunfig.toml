@@ -1,3 +1,5 @@
+preload = ["./setup.ts"]
+
 [test]
 coverage = true
 
