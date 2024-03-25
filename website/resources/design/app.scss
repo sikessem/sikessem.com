@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root{
+    --bs-primary-rgb: 255, 128, 0;
+}
+
+[x-cloak] {
+    @apply hidden;
+}
+

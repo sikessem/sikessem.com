@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "biome ci .",
+    "dev": "vite",
+    "fix": "bun run format.fix && bun run lint.fix",
+    "format": "biome format .",
+    "format.fix": "biome format --write .",
+    "lint": "biome check .",
+    "lint.fix": "biome check --apply-unsafe .",
+    "prod": "vite build",
+    "test": "bun test",
+    "test.cov": "bun test --coverage",
+    "test.hot": "bun test --hot",
+    "test.watch": "bun test --watch",
+    "type.check": "tsc --incremental --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.6.2",
+    "@fontsource-variable/figtree": "^5.0.20",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/bun": "^1.0.10",
+    "@types/node": "^20.11.30",
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.6.4",
+    "laravel-vite-plugin": "^1.0",
+    "postcss": "^8.4.32",
+    "sass": "^1.72.0",
+    "styliz": "^0.0.2",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6"
+  }
+}
