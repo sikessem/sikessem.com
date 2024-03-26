@@ -10,7 +10,7 @@ export class FileRouter extends BaseFileRouter {
       if (path.isFile) {
         const file = Bun.file(path.realname);
         console.log(`Serve static file ${path.realname}`);
-        return new Response(file.readable, {
+        return new Response(file, {
           headers: {
             "Content-Type": file.type,
           },
