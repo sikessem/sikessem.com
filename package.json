@@ -54,7 +54,6 @@
     "textlint": "^14.0.4"
   },
   "dependencies": {
-    "boss.sh": "^0.0.2",
-    "phun": "^0.0.1"
+    "phun": "^0.0.2"
   }
 }
